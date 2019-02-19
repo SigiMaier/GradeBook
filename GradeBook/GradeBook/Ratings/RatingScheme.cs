@@ -65,6 +65,7 @@ namespace GradeBook.Ratings
         /// <inheritdoc/>
         public RatingSchemeDTO Ratings { get; }
 
+        /// <inheritdoc/>
         public Dictionary<double, double[]> GetPointsPerGrade()
         {
             Dictionary<double, double[]> pointsPerGrade = this.InitPointsPerGrade();
