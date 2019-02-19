@@ -7,7 +7,8 @@ namespace RatingScheme.Tests
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using global::RatingScheme.Contracts;
+    using GradeBook.Ratings;
+    using GradeBook.Ratings.Contracts;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>

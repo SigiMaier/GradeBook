@@ -2,12 +2,11 @@
 // No copyright
 // </copyright>
 
-namespace RatingScheme
+namespace GradeBook.Ratings
 {
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
-    using global::RatingScheme.Contracts;
+    using GradeBook.Ratings.Contracts;
 
     /// <summary>
     /// Class for Setting and Getting Values regarding the Rating Scheme for the Exam,
@@ -19,8 +18,11 @@ namespace RatingScheme
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RatingScheme"/> class.
+        /// Throws RatingSchemeExceptions when the numberOfProblems == 0 or pointsPerProblem.Count != numberOfProblems.
         /// </summary>
-        public RatingScheme()
+        /// <param name="numberOfProblems">The number of Problems in the Exam.</param>
+        /// <param name="pointsPerProblem">The points per Problem for the Exam</param>
+        public RatingScheme(int numberOfProblems, List<int> pointsPerProblem)
         {
             this.Ratings = new RatingSchemeDTO()
             {
@@ -28,6 +30,22 @@ namespace RatingScheme
                 NumberOfProblems = 0,
                 PointsPerProblem = new Dictionary<int, int>()
             };
+
+            if (numberOfProblems == 0)
+            {
+                throw new RatingSchemeException($"The value of {nameof(numberOfProblems)} has to be > 0."
+                    + $" Set {nameof(numberOfProblems)} to a correct value.");
+            }
+
+            this.Ratings.NumberOfProblems = numberOfProblems;
+
+            if (pointsPerProblem.Count != numberOfProblems)
+            {
+                throw new RatingSchemeException($"The Count of {nameof(pointsPerProblem)} does not match the "
+                    + $"{nameof(numberOfProblems)}. Check both Values.");
+            }
+
+            this.SetPointsPerProblem(pointsPerProblem);
 
             this.percentPerGrade = new Dictionary<double, double>
             {
@@ -47,36 +65,6 @@ namespace RatingScheme
         /// <inheritdoc/>
         public RatingSchemeDTO Ratings { get; }
 
-        /// <inheritdoc/>
-        public void SetNumberOfProblems(int numberOfProblems)
-        {
-            if (numberOfProblems < 1)
-            {
-                throw new RatingSchemeException($"The value of {nameof(numberOfProblems)} has to be > 0."
-                    + $" Set {nameof(numberOfProblems)} to a correct value.");
-            }
-
-            this.Ratings.NumberOfProblems = numberOfProblems;
-        }
-
-        /// <inheritdoc/>
-        public void SetPointsPerProblem(List<int> pointsPerProblem)
-        {
-            if (this.Ratings.NumberOfProblems < 1)
-            {
-                throw new RatingSchemeException(nameof(this.Ratings.NumberOfProblems)
-                    + " was not set to correct "
-                    + $"value > 1. Call {nameof(this.SetNumberOfProblems)} first.");
-            }
-
-            for (int i = 0; i < this.Ratings.NumberOfProblems; i++)
-            {
-                this.Ratings.PointsPerProblem.Add(i + 1, pointsPerProblem[i]);
-            }
-
-            this.SetMaximumPoints();
-        }
-
         public Dictionary<double, double[]> GetPointsPerGrade()
         {
             Dictionary<double, double[]> pointsPerGrade = this.InitPointsPerGrade();
@@ -84,6 +72,16 @@ namespace RatingScheme
             this.InitFirstElementOfPointsPerGrade(pointsPerGrade);
 
             return this.CalculatePointsPerGrade(pointsPerGrade);
+        }
+
+        private void SetPointsPerProblem(List<int> pointsPerProblem)
+        {
+            for (int i = 0; i < this.Ratings.NumberOfProblems; i++)
+            {
+                this.Ratings.PointsPerProblem.Add(i + 1, pointsPerProblem[i]);
+            }
+
+            this.SetMaximumPoints();
         }
 
         private void SetMaximumPoints()

@@ -50,6 +50,10 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ratings\Contracts\DTOs\RatingSchemeDTO.cs" />
+    <Compile Include="Ratings\Contracts\Exceptions\RatingSchemeException.cs" />
+    <Compile Include="Ratings\Contracts\IRatingScheme.cs" />
+    <Compile Include="Ratings\RatingScheme.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

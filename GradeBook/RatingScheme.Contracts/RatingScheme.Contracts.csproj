@@ -43,9 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTOs\RatingSchemeDTO.cs" />
-    <Compile Include="Exceptions\RatingSchemeException.cs" />
-    <Compile Include="IRatingScheme.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
