@@ -2,7 +2,7 @@
 // No copyright
 // </copyright>
 
-namespace RatingScheme.Contracts
+namespace GradeBook.Ratings.Contracts
 {
     using System.Collections.Generic;
 
