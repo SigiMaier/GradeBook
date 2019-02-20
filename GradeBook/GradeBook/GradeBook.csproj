@@ -56,9 +56,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Base\MVVM\RelayCommand.cs" />
+    <Compile Include="MVVM\Model\Problem.cs" />
+    <Compile Include="MVVM\ViewModel\GradingViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\MainWindowViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\Model\StudentModelCollection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ratings\Contracts\DTOs\GradingDTO.cs" />
@@ -69,8 +73,20 @@
     <Compile Include="Ratings\Contracts\IGrading.cs" />
     <Compile Include="Ratings\RatingScheme.cs" />
     <Compile Include="Base\MVVM\ViewModelBase.cs" />
-    <Compile Include="Views\UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
+    <Compile Include="MVVM\ViewModel\RatingViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\StatisticViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\StudentsViewModel.cs" />
+    <Compile Include="MVVM\Views\GradingView.xaml.cs">
+      <DependentUpon>GradingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\Views\RatingView.xaml.cs">
+      <DependentUpon>RatingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\Views\StatisticView.xaml.cs">
+      <DependentUpon>StatisticView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\Views\StudentsView.xaml.cs">
+      <DependentUpon>StudentsView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -90,13 +106,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserControl1.xaml">
+    <Page Include="MVVM\Views\GradingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\Views\RatingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\Views\StatisticView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\Views\StudentsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -25,7 +25,17 @@ namespace GradeBook.Base.MVVM
         /// Initializes a new instance of the <see cref="RelayCommand"/> class.
         /// </summary>
         /// <param name="execute">Defines WHAT to execute</param>
-        /// the action.<param name="canExecute">Defines WHEN the WHAT</param>
+        public RelayCommand(Action<object> execute)
+            : this(execute, null)
+        {
+            this.executeHandler = execute;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RelayCommand"/> class.
+        /// </summary>
+        /// <param name="execute">Defines WHAT to execute</param>
+        /// <param name="canExecute">Defines WHEN the WHAT</param>
         public RelayCommand(Action<object> execute, Func<object, bool> canExecute)
         {
             this.executeHandler = execute ?? throw new ArgumentNullException(nameof(execute));

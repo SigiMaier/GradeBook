@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GradeBook.Views
+namespace GradeBook.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for StudentsView.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class StudentsView : UserControl
     {
-        public UserControl1()
+        public StudentsView()
         {
             InitializeComponent();
         }
