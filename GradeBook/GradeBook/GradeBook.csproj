@@ -55,8 +55,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Base\MVVM\IMessageBoxService.cs" />
+    <Compile Include="Base\MVVM\MessageBoxService.cs" />
     <Compile Include="Base\MVVM\RelayCommand.cs" />
-    <Compile Include="MVVM\Model\Problem.cs" />
+    <Compile Include="MVVM\Model\GradeRatingModel.cs" />
+    <Compile Include="MVVM\Model\ProblemModel.cs" />
+    <Compile Include="MVVM\Model\RatingModel.cs" />
     <Compile Include="MVVM\ViewModel\GradingViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainWindowViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">

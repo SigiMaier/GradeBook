@@ -118,7 +118,7 @@ namespace RatingScheme.Tests
             }
 
             // Act
-            pointsPerGrade = ratingScheme.GetPointsPerGrade();
+            pointsPerGrade = ratingScheme.Ratings.PointsPerGrade;
 
             // Assert
             Assert.IsTrue(
