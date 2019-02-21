@@ -108,6 +108,7 @@ namespace Base.Tests.FileHandling
         {
             // Arrange
             SimpleTestClassDirectory testClassDirectory = new SimpleTestClassDirectory();
+            testClassDirectory.TestClasses = new System.Collections.Generic.List<SimpleTestClassWithoutAttributes>();
             testClassDirectory.TestClasses.Add(new SimpleTestClassWithoutAttributes()
             { HouseNumber = 4, StreetName = "Edlinger Str.", City = "Baierbarch" });
             testClassDirectory.TestClasses.Add(new SimpleTestClassWithoutAttributes()

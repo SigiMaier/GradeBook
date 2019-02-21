@@ -1,15 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿// <copyright file="SimpleTestClassDirectory.cs" company="Sigi Maier">
+// No copyright
+// </copyright>
 
 namespace Base.Tests.FileHandling.TestObjects
 {
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Simple Test Class to test serialization to *.xml of a List of Objects.
+    /// </summary>
     public class SimpleTestClassDirectory
     {
+        /// <summary>
+        /// A List of TestClasses that have to be serialized.
+        /// </summary>
         [XmlElement("SimpleTestClassWithoutAttributes")]
-        public List<SimpleTestClassWithoutAttributes> TestClasses = new List<SimpleTestClassWithoutAttributes>();
+        public List<SimpleTestClassWithoutAttributes> TestClasses { get; set; }
     }
 }
