@@ -24,11 +24,26 @@ namespace GradeBook.Ratings
         /// <param name="pointsPerProblem">The points per Problem for the Exam</param>
         public RatingScheme(int numberOfProblems, List<int> pointsPerProblem)
         {
+            this.percentPerGrade = new Dictionary<double, double>
+            {
+                { 39.5, 5.0 },
+                { 49.5, 4.0 },
+                { 55.0, 3.7 },
+                { 60.0, 3.3 },
+                { 65.0, 3.0 },
+                { 70.0, 2.7 },
+                { 75.0, 2.3 },
+                { 80.0, 2.0 },
+                { 85.0, 1.7 },
+                { 90.0, 1.3 }
+            };
+
             this.Ratings = new RatingSchemeDTO()
             {
                 MaximumPoints = 0,
                 NumberOfProblems = 0,
-                PointsPerProblem = new Dictionary<int, int>()
+                PointsPerProblem = new Dictionary<int, int>(),
+                PointsPerGrade = this.InitPointsPerGrade()
             };
 
             if (numberOfProblems == 0)
@@ -46,34 +61,11 @@ namespace GradeBook.Ratings
             }
 
             this.SetPointsPerProblem(pointsPerProblem);
-
-            this.percentPerGrade = new Dictionary<double, double>
-            {
-                { 39.5, 5.0 },
-                { 49.5, 4.0 },
-                { 55.0, 3.7 },
-                { 60.0, 3.3 },
-                { 65.0, 3.0 },
-                { 70.0, 2.7 },
-                { 75.0, 2.3 },
-                { 80.0, 2.0 },
-                { 85.0, 1.7 },
-                { 90.0, 1.3 }
-            };
+            this.SetPointsPerGrade();
         }
 
         /// <inheritdoc/>
         public RatingSchemeDTO Ratings { get; }
-
-        /// <inheritdoc/>
-        public Dictionary<double, double[]> GetPointsPerGrade()
-        {
-            Dictionary<double, double[]> pointsPerGrade = this.InitPointsPerGrade();
-
-            this.InitFirstElementOfPointsPerGrade(pointsPerGrade);
-
-            return this.CalculatePointsPerGrade(pointsPerGrade);
-        }
 
         private void SetPointsPerProblem(List<int> pointsPerProblem)
         {
@@ -83,6 +75,12 @@ namespace GradeBook.Ratings
             }
 
             this.SetMaximumPoints();
+        }
+
+        private void SetPointsPerGrade()
+        {
+            this.InitFirstElementOfPointsPerGrade();
+            this.CalculatePointsPerGrade();
         }
 
         private void SetMaximumPoints()
@@ -107,10 +105,10 @@ namespace GradeBook.Ratings
             return pointsPerGrade;
         }
 
-        private void InitFirstElementOfPointsPerGrade(Dictionary<double, double[]> pointsPerGrade)
+        private void InitFirstElementOfPointsPerGrade()
         {
-            pointsPerGrade.ElementAt(0).Value[0] = 0.0;
-            pointsPerGrade.ElementAt(0).Value[1] = this.CalculateUpperPointsBoundaryForGrade(0);
+            this.Ratings.PointsPerGrade.ElementAt(0).Value[0] = 0.0;
+            this.Ratings.PointsPerGrade.ElementAt(0).Value[1] = this.CalculateUpperPointsBoundaryForGrade(0);
         }
 
         private double CalculateUpperPointsBoundaryForGrade(int index)
@@ -118,19 +116,18 @@ namespace GradeBook.Ratings
             return this.Ratings.MaximumPoints * this.percentPerGrade.ElementAt(index).Key / 100.0;
         }
 
-        private Dictionary<double, double[]> CalculatePointsPerGrade(Dictionary<double, double[]> pointsPerGrade)
+        private void CalculatePointsPerGrade()
         {
-            for (int i = 1; i < pointsPerGrade.Count - 1; i++)
+            for (int i = 1; i < this.Ratings.PointsPerGrade.Count - 1; i++)
             {
-                pointsPerGrade.ElementAt(i).Value[0] = pointsPerGrade.ElementAt(i - 1).Value[1] + 0.5;
-                pointsPerGrade.ElementAt(i).Value[1] =
+                this.Ratings.PointsPerGrade.ElementAt(i).Value[0] = this.Ratings.PointsPerGrade.ElementAt(i - 1).Value[1] + 0.5;
+                this.Ratings.PointsPerGrade.ElementAt(i).Value[1] =
                     this.CalculateUpperPointsBoundaryForGrade(i);
             }
 
-            pointsPerGrade.ElementAt(pointsPerGrade.Count - 1).Value[0] = pointsPerGrade.ElementAt(pointsPerGrade.Count - 2).Value[1] + 0.5;
-            pointsPerGrade.ElementAt(pointsPerGrade.Count - 1).Value[1] = this.Ratings.MaximumPoints;
-
-            return pointsPerGrade;
+            this.Ratings.PointsPerGrade.ElementAt(this.Ratings.PointsPerGrade.Count - 1).Value[0]
+                = this.Ratings.PointsPerGrade.ElementAt(this.Ratings.PointsPerGrade.Count - 2).Value[1] + 0.5;
+            this.Ratings.PointsPerGrade.ElementAt(this.Ratings.PointsPerGrade.Count - 1).Value[1] = this.Ratings.MaximumPoints;
         }
     }
 }

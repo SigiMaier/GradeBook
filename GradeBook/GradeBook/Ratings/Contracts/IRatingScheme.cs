@@ -17,11 +17,5 @@ namespace GradeBook.Ratings.Contracts
         /// Gets the Ratings for the Exam.
         /// </summary>
         RatingSchemeDTO Ratings { get; }
-
-        /// <summary>
-        /// Gets the points per Grade for the Exam.
-        /// </summary>
-        /// <returns>The lower and upper boundary for each Grade.</returns>
-        Dictionary<double, double[]> GetPointsPerGrade();
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GradeBook.MVVM.Model
 {
-    public class Problem
+    public class ProblemModel
     {
         public string ProblemName { get; set; }
 

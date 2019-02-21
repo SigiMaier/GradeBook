@@ -15,16 +15,21 @@ namespace GradeBook.MVVM.ViewModel
         private ICommand addPointsToListCommand;
         private ICommand addProblemCommand;
         private ICommand removeProblemCommand;
+        private ICommand calculateRatingCommand;
         private int numberOfProblems;
-        private ObservableCollection<Problem> problems;
+        private ObservableCollection<ProblemModel> problems;
         private int totalPoints;
         private int pointsForProblem;
+        private RatingModel rating;
+        private IMessageBoxService messageBoxService;
+        private ObservableCollection<GradeRatingModel> gradeRatings;
 
         public RatingViewModel()
         {
-            this.problems = new ObservableCollection<Problem>();
+            this.problems = new ObservableCollection<ProblemModel>();
+            this.gradeRatings = new ObservableCollection<GradeRatingModel>();
+            this.messageBoxService = new MessageBoxService();
         }
-
 
         public ICommand AddProblemCommand
         {
@@ -41,6 +46,15 @@ namespace GradeBook.MVVM.ViewModel
             {
                 return this.removeProblemCommand ??
                     (this.removeProblemCommand = new RelayCommand(_ => this.RemoveProblem()));
+            }
+        }
+
+        public ICommand CalculateRatingCommand
+        {
+            get
+            {
+                return this.calculateRatingCommand ??
+                    (this.calculateRatingCommand = new RelayCommand(_ => this.CalculateRating()));
             }
         }
 
@@ -72,7 +86,7 @@ namespace GradeBook.MVVM.ViewModel
             }
         }
 
-        public ObservableCollection<Problem> Problems
+        public ObservableCollection<ProblemModel> Problems
         {
             get
             {
@@ -86,24 +100,24 @@ namespace GradeBook.MVVM.ViewModel
             }
         }
 
-        public int PointsForProblem
+        public ObservableCollection<GradeRatingModel> GradeRatings
         {
             get
             {
-                return this.pointsForProblem;
+                return this.gradeRatings;
             }
 
             set
             {
-                this.pointsForProblem = value;
-                this.OnPropertyChanged(nameof(this.PointsForProblem));
+                this.gradeRatings = value;
+                this.OnPropertyChanged(nameof(this.GradeRatings));
             }
         }
 
         private void AddProblem()
         {
             this.numberOfProblems++;
-            this.Problems.Add(new Problem() { ProblemName = $"Problem{this.numberOfProblems}", PointsForProblem = 0 });
+            this.Problems.Add(new ProblemModel() { ProblemName = $"Problem{this.numberOfProblems}", PointsForProblem = 0 });
         }
 
         private void RemoveProblem()
@@ -113,7 +127,31 @@ namespace GradeBook.MVVM.ViewModel
                 this.Problems.RemoveAt(this.numberOfProblems - 1);
                 this.numberOfProblems--;
             }
-            
+        }
+
+        private void CalculateRating()
+        {
+            if (this.numberOfProblems < 1)
+            {
+                this.messageBoxService.ShowInfoMessage("There are no problems to calculate the Rating", "Information");
+            }
+            else
+            {
+                this.GradeRatings.Clear();
+                List<int> pointsPerProblem = new List<int>();
+
+                foreach (var item in this.Problems)
+                {
+                    pointsPerProblem.Add(item.PointsForProblem);
+                }
+
+                this.rating = new RatingModel(this.numberOfProblems, pointsPerProblem);
+
+                foreach (var item in this.rating.Rating.PointsPerGrade)
+                {
+                    this.GradeRatings.Add(new GradeRatingModel() { Grade = item.Key, LowerBoundary = item.Value[0], UpperBoundary = item.Value[1] });
+                }
+            }
         }
     }
 }
