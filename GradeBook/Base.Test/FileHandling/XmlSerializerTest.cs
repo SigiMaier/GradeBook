@@ -123,7 +123,6 @@ namespace Base.Tests.FileHandling
 
             // Cleanup
             File.Delete(fileName);
-
         }
     }
 }
