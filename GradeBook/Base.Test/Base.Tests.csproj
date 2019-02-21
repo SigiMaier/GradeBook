@@ -54,7 +54,9 @@
   <ItemGroup>
     <Compile Include="FileHandling\TestObjects\SimpleTestClassDirectory.cs" />
     <Compile Include="FileHandling\TestObjects\SimpleTestClassWithoutAttributes.cs" />
+    <Compile Include="FileHandling\TestObjects\SimpleTestClassWithUsageOfXmlAttribute.cs" />
     <Compile Include="FileHandling\TestObjects\SimpleTestClassWithUsageOfXmlElement.cs" />
+    <Compile Include="FileHandling\TestObjects\SimpleTestClassWithUsageOfXmlRoot.cs" />
     <Compile Include="FileHandling\XmlDeserializerTest.cs" />
     <Compile Include="FileHandling\XmlSerializerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
