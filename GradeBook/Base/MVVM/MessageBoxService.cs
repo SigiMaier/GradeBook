@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace GradeBook.Base.MVVM
+namespace Base.MVVM
 {
     public class MessageBoxService : IMessageBoxService
     {

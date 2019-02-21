@@ -1,4 +1,4 @@
-﻿using GradeBook.Base.MVVM;
+﻿using Base.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;

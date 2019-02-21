@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GradeBook.Base.MVVM
+namespace Base.MVVM
 {
     public interface IMessageBoxService
     {

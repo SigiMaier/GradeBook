@@ -6,7 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
     using System.Windows.Input;
-    using GradeBook.Base.MVVM;
+    using Base.MVVM;
     using GradeBook.MVVM.Views;
 
     public class MainWindowViewModel : ViewModelBase
