@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SimpleTestClassDirectory>
+  <SimpleTestClassWithoutAttributes>
+    <HouseNumber>4</HouseNumber>
+    <StreetName>Edlinger Str.</StreetName>
+    <City>Baierbach</City>
+  </SimpleTestClassWithoutAttributes>
+  <SimpleTestClassWithoutAttributes>
+    <HouseNumber>5</HouseNumber>
+    <StreetName>Simssee Straße</StreetName>
+    <City>Stephanskirchen</City>
+  </SimpleTestClassWithoutAttributes>
+</SimpleTestClassDirectory>

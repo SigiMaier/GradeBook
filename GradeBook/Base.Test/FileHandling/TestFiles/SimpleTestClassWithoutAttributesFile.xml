@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SimpleTestClassWithoutAttributes>
+  <HouseNumber>4</HouseNumber>
+  <StreetName>Edlinger Str.</StreetName>
+  <City>Baierbach</City>
+</SimpleTestClassWithoutAttributes>

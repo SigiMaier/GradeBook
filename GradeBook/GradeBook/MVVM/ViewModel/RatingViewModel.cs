@@ -1,25 +1,27 @@
-﻿using GradeBook.Base.MVVM;
+﻿using Base.MVVM;
 using GradeBook.MVVM.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace GradeBook.MVVM.ViewModel
 {
     public class RatingViewModel : ViewModelBase
     {
-        private ICommand addPointsToListCommand;
         private ICommand addProblemCommand;
         private ICommand removeProblemCommand;
         private ICommand calculateRatingCommand;
+        private ICommand saveRatingCommand;
         private int numberOfProblems;
         private ObservableCollection<ProblemModel> problems;
         private int totalPoints;
-        private int pointsForProblem;
         private RatingModel rating;
         private IMessageBoxService messageBoxService;
         private ObservableCollection<GradeRatingModel> gradeRatings;
@@ -55,6 +57,15 @@ namespace GradeBook.MVVM.ViewModel
             {
                 return this.calculateRatingCommand ??
                     (this.calculateRatingCommand = new RelayCommand(_ => this.CalculateRating()));
+            }
+        }
+
+        public ICommand SaveRatingCommand
+        {
+            get
+            {
+                return this.saveRatingCommand ??
+                    (this.saveRatingCommand = new RelayCommand(_ => this.SaveRating()));
             }
         }
 
@@ -138,20 +149,42 @@ namespace GradeBook.MVVM.ViewModel
             else
             {
                 this.GradeRatings.Clear();
-                List<int> pointsPerProblem = new List<int>();
+                List<int> pointsPerProblem = this.GetPointsPerProblem();
 
-                foreach (var item in this.Problems)
-                {
-                    pointsPerProblem.Add(item.PointsForProblem);
-                }
-
-                this.rating = new RatingModel(this.numberOfProblems, pointsPerProblem);
-
-                foreach (var item in this.rating.Rating.PointsPerGrade)
-                {
-                    this.GradeRatings.Add(new GradeRatingModel() { Grade = item.Key, LowerBoundary = item.Value[0], UpperBoundary = item.Value[1] });
-                }
+                this.GetRating(pointsPerProblem);
             }
+        }
+
+        private void SaveRating()
+        { }
+
+        private List<int> GetPointsPerProblem()
+        {
+            List<int> pointsPerProblem = new List<int>();
+
+            foreach (var item in this.Problems)
+            {
+                pointsPerProblem.Add(item.PointsForProblem);
+            }
+
+            return pointsPerProblem;
+        }
+
+        private void GetRating(List<int> pointsPerProblem)
+        {
+            this.rating = new RatingModel(this.numberOfProblems, pointsPerProblem);
+
+            foreach (var item in this.rating.Rating.PointsPerGrade)
+            {
+                this.GradeRatings.Add(new GradeRatingModel()
+                {
+                    Grade = item.Key,
+                    LowerBoundary = item.Value[0],
+                    UpperBoundary = item.Value[1]
+                });
+            }
+
+            this.TotalPoints = this.rating.Rating.MaximumPoints;
         }
     }
 }

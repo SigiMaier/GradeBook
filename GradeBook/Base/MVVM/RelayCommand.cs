@@ -2,7 +2,7 @@
 // No copyright
 // </copyright>
 
-namespace GradeBook.Base.MVVM
+namespace Base.MVVM
 {
     using System;
     using System.Windows.Input;
