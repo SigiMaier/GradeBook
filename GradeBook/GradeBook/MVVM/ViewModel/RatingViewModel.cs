@@ -1,39 +1,46 @@
-﻿using Basics.MVVM;
-using GradeBook.Base;
-using GradeBook.MVVM.Model;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Xml;
-using System.Xml.Serialization;
+﻿// <copyright file="RatingViewModel.cs" company="Sigi Maier">
+// No copyright
+// </copyright>
 
 namespace GradeBook.MVVM.ViewModel
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Windows.Input;
+    using Basics.MVVM;
+    using GradeBook.Base;
+    using GradeBook.MVVM.Model;
+
+    /// <summary>
+    /// ViewModel for <see cref="Views.RatingView"/>.
+    /// </summary>
     public class RatingViewModel : ViewModelBase
     {
+        private readonly IMessageBoxService messageBoxService;
+
+        private RatingSchemeModel rating;
+
         private ICommand addProblemCommand;
         private ICommand removeProblemCommand;
         private ICommand calculateRatingCommand;
         private ICommand saveRatingCommand;
-        private int numberOfProblems;
-        private ObservableCollection<ProblemModel> problems;
-        private int totalPoints;
-        private string examName;
-        private RatingSchemeModel rating;
-        private IMessageBoxService messageBoxService;
-        private ObservableCollection<GradeRatingModel> gradeRatings;
-        private bool saveRatingsEnabled;
 
+        private ObservableCollection<ProblemModel> problems;
+        private ObservableCollection<GradeRatingModel> gradeRatings;
+
+        private string examName;
+        private int numberOfProblems;
+        private int totalPoints;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RatingViewModel"/> class.
+        /// </summary>
         public RatingViewModel()
         {
+            this.messageBoxService = new MessageBoxService();
             this.problems = new ObservableCollection<ProblemModel>();
             this.gradeRatings = new ObservableCollection<GradeRatingModel>();
-            this.messageBoxService = new MessageBoxService();
         }
 
         public ICommand AddProblemCommand
@@ -72,49 +79,6 @@ namespace GradeBook.MVVM.ViewModel
             }
         }
 
-        public int NumberOfProblems
-        {
-            get
-            {
-                return this.numberOfProblems;
-            }
-
-            set
-            {
-                this.numberOfProblems = value;
-                this.OnPropertyChanged(nameof(this.NumberOfProblems));
-            }
-        }
-
-        public string ExamName
-        {
-            get
-            {
-                return this.examName;
-            }
-
-            set
-            {
-                this.examName = value;
-                this.OnPropertyChanged(nameof(this.ExamName));
-                this.OnPropertyChanged(nameof(this.SaveRatingsEnabled));
-            }
-        }
-
-        public int TotalPoints
-        {
-            get
-            {
-                return this.totalPoints;
-            }
-
-            set
-            {
-                this.totalPoints = value;
-                this.OnPropertyChanged(nameof(this.TotalPoints));
-            }
-        }
-
         public ObservableCollection<ProblemModel> Problems
         {
             get
@@ -142,6 +106,49 @@ namespace GradeBook.MVVM.ViewModel
                 this.gradeRatings = value;
                 this.OnPropertyChanged(nameof(this.GradeRatings));
                 this.OnPropertyChanged(nameof(this.SaveRatingsEnabled));
+            }
+        }
+
+        public string ExamName
+        {
+            get
+            {
+                return this.examName;
+            }
+
+            set
+            {
+                this.examName = value;
+                this.OnPropertyChanged(nameof(this.ExamName));
+                this.OnPropertyChanged(nameof(this.SaveRatingsEnabled));
+            }
+        }
+
+        public int NumberOfProblems
+        {
+            get
+            {
+                return this.numberOfProblems;
+            }
+
+            set
+            {
+                this.numberOfProblems = value;
+                this.OnPropertyChanged(nameof(this.NumberOfProblems));
+            }
+        }
+
+        public int TotalPoints
+        {
+            get
+            {
+                return this.totalPoints;
+            }
+
+            set
+            {
+                this.totalPoints = value;
+                this.OnPropertyChanged(nameof(this.TotalPoints));
             }
         }
 

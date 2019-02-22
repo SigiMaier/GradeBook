@@ -1,12 +1,14 @@
-﻿using Basics.MVVM;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="GradingViewModel.cs" company="Sigi Maier">
+// No copyright
+// </copyright>
 
 namespace GradeBook.MVVM.ViewModel
 {
+    using Basics.MVVM;
+
+    /// <summary>
+    /// ViewModel for the <see cref="Views.GradingView"/>
+    /// </summary>
     public class GradingViewModel : ViewModelBase
     {
     }

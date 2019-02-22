@@ -53,6 +53,7 @@
             </Grid.ColumnDefinitions>
             <DataGrid ItemsSource="{Binding Problems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       CanUserAddRows="False"
+                      CanUserSortColumns="False"
                       Margin="10,10,171,10">                
             </DataGrid>
             <Button Content="Calculate Rating"

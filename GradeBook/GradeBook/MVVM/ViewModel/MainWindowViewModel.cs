@@ -1,22 +1,34 @@
-﻿namespace GradeBook.MVVM.ViewModel
+﻿// <copyright file="MainWindowViewModel.cs" company="Sigi Maier">
+// No copyright
+// </copyright>
+
+namespace GradeBook.MVVM.ViewModel
 {
     using System.Windows.Input;
     using Basics.MVVM;
     using GradeBook.MVVM.Views;
 
+    /// <summary>
+    /// View Model for the Main Window.
+    /// Creates and shows all SubViews.
+    /// </summary>
     public class MainWindowViewModel : ViewModelBase
     {
+        private readonly object ratingView;
+        private readonly object studentsView;
+        private readonly object gradingView;
+        private readonly object statisticView;
+
         private ICommand gotoRatingViewCommand;
         private ICommand gotoStudentsViewCommand;
         private ICommand gotoGradingViewCommand;
         private ICommand gotoStatisticViewCommand;
 
         private object currentView;
-        private object ratingView;
-        private object studentsView;
-        private object gradingView;
-        private object statisticView;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
+        /// </summary>
         public MainWindowViewModel()
         {
             this.ratingView = new RatingView();
@@ -26,6 +38,9 @@
             this.currentView = this.ratingView;
         }
 
+        /// <summary>
+        /// Gets or sets the CurrentView.
+        /// </summary>
         public object CurrentView
         {
             get
@@ -40,6 +55,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the GotoRatingViewCommand and executes the <see cref="GotoRatingView"/> Method.
+        /// </summary>
         public ICommand GotoRatingViewCommand
         {
             get
@@ -49,6 +67,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the GotoStudentsViewCommand and executes the <see cref="GotoStudentsView"/> Method.
+        /// </summary>
         public ICommand GotoStudentsViewCommand
         {
             get
@@ -58,6 +79,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the GotoGradingViewCommand and executes the <see cref="GotoGradingView"/> Method.
+        /// </summary>
         public ICommand GotoGradingViewCommand
         {
             get
@@ -67,6 +91,9 @@
             }
         }
 
+        /// <summary>
+        /// Gets the GotoStatisticViewCommand and executes the <see cref="GotoStatisticView"/> Method.
+        /// </summary>
         public ICommand GotoStatisticViewCommand
         {
             get
