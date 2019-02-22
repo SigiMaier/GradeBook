@@ -55,6 +55,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Base\AppEnvironment.cs" />
+    <Compile Include="FileHandling\XmlSerializer.cs" />
+    <Compile Include="MVVM\Model\Rating\ExamRatingModel.cs" />
     <Compile Include="MVVM\Model\Rating\GradeRatingModel.cs" />
     <Compile Include="MVVM\Model\Rating\ProblemModel.cs" />
     <Compile Include="MVVM\Model\Rating\RatingModel.cs" />
@@ -124,9 +127,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Base\Base.csproj">
+    <ProjectReference Include="..\Base\Basics.csproj">
       <Project>{0EEEC755-BAE4-4A38-8C4A-316FE29B4815}</Project>
-      <Name>Base</Name>
+      <Name>Basics</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace GradeBook.MVVM.Model
 {
-    public class RatingModel
+    public class RatingSchemeModel
     {
         private IRatingScheme ratingScheme;
 
-        public RatingModel(int numberOfProblems, List<int> pointsPerProblem)
+        public RatingSchemeModel(int numberOfProblems, List<int> pointsPerProblem)
         {
             this.ratingScheme = new RatingScheme(numberOfProblems, pointsPerProblem);
             this.Rating = this.ratingScheme.Ratings;

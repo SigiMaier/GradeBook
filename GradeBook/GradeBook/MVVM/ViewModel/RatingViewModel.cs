@@ -1,4 +1,5 @@
-﻿using Base.MVVM;
+﻿using Basics.MVVM;
+using GradeBook.Base;
 using GradeBook.MVVM.Model;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,11 @@ namespace GradeBook.MVVM.ViewModel
         private int numberOfProblems;
         private ObservableCollection<ProblemModel> problems;
         private int totalPoints;
-        private RatingModel rating;
+        private string examName;
+        private RatingSchemeModel rating;
         private IMessageBoxService messageBoxService;
         private ObservableCollection<GradeRatingModel> gradeRatings;
+        private bool saveRatingsEnabled;
 
         public RatingViewModel()
         {
@@ -83,6 +86,21 @@ namespace GradeBook.MVVM.ViewModel
             }
         }
 
+        public string ExamName
+        {
+            get
+            {
+                return this.examName;
+            }
+
+            set
+            {
+                this.examName = value;
+                this.OnPropertyChanged(nameof(this.ExamName));
+                this.OnPropertyChanged(nameof(this.SaveRatingsEnabled));
+            }
+        }
+
         public int TotalPoints
         {
             get
@@ -108,6 +126,7 @@ namespace GradeBook.MVVM.ViewModel
             {
                 this.problems = value;
                 this.OnPropertyChanged(nameof(this.Problems));
+                this.OnPropertyChanged(nameof(this.SaveRatingsEnabled));
             }
         }
 
@@ -122,6 +141,15 @@ namespace GradeBook.MVVM.ViewModel
             {
                 this.gradeRatings = value;
                 this.OnPropertyChanged(nameof(this.GradeRatings));
+                this.OnPropertyChanged(nameof(this.SaveRatingsEnabled));
+            }
+        }
+
+        public bool SaveRatingsEnabled
+        {
+            get
+            {
+                return this.SetSaveRatingsEnabled();
             }
         }
 
@@ -156,7 +184,18 @@ namespace GradeBook.MVVM.ViewModel
         }
 
         private void SaveRating()
-        { }
+        {
+            ExamRatingModel examRatingModel = new ExamRatingModel
+            {
+                ExamName = this.ExamName,
+                NumberOfProblems = this.numberOfProblems,
+                PointsPerGrade = this.gradeRatings.ToList(),
+                PointsPerProblems = this.problems.ToList(),
+                TotalPoints = this.totalPoints
+            };
+
+            FileHandling.XmlSerializer.Serialize(examRatingModel, AppEnvironment.Instance.ExamRatingsFolder + $"\\{this.ExamName}.xml");
+        }
 
         private List<int> GetPointsPerProblem()
         {
@@ -172,7 +211,7 @@ namespace GradeBook.MVVM.ViewModel
 
         private void GetRating(List<int> pointsPerProblem)
         {
-            this.rating = new RatingModel(this.numberOfProblems, pointsPerProblem);
+            this.rating = new RatingSchemeModel(this.numberOfProblems, pointsPerProblem);
 
             foreach (var item in this.rating.Rating.PointsPerGrade)
             {
@@ -185,6 +224,12 @@ namespace GradeBook.MVVM.ViewModel
             }
 
             this.TotalPoints = this.rating.Rating.MaximumPoints;
+        }
+
+        private bool SetSaveRatingsEnabled()
+        {
+            return
+                !string.IsNullOrEmpty(this.ExamName) && this.TotalPoints > 0;
         }
     }
 }

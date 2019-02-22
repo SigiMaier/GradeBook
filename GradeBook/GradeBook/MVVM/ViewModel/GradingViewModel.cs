@@ -1,4 +1,4 @@
-﻿using Base.MVVM;
+﻿using Basics.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;

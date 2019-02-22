@@ -2,7 +2,7 @@
 // No copyright
 // </copyright>
 
-namespace Base.FileHandling
+namespace Basics.FileHandling
 {
     using System.IO;
 

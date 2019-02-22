@@ -2,9 +2,12 @@
 // No copyright
 // </copyright>
 
-namespace Base.FileHandling
+namespace Basics.FileHandling
 {
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// Class that serializes Objects to a *.xml File.

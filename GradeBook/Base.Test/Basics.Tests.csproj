@@ -8,8 +8,8 @@
     <ProjectGuid>{6910F4B2-CA4B-4672-BBB7-734C75F322EE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Base.Tests</RootNamespace>
-    <AssemblyName>Base.Tests</AssemblyName>
+    <RootNamespace>Basics.Tests</RootNamespace>
+    <AssemblyName>Basics.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -29,7 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Base.Tests.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Basics.Tests.xml</DocumentationFile>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -52,13 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileHandling\TestObjects\SimpleTestClassDictionary.cs" />
     <Compile Include="FileHandling\TestObjects\SimpleTestClassDirectory.cs" />
     <Compile Include="FileHandling\TestObjects\SimpleTestClassWithoutAttributes.cs" />
     <Compile Include="FileHandling\TestObjects\SimpleTestClassWithUsageOfXmlAttribute.cs" />
     <Compile Include="FileHandling\TestObjects\SimpleTestClassWithUsageOfXmlElement.cs" />
     <Compile Include="FileHandling\TestObjects\SimpleTestClassWithUsageOfXmlRoot.cs" />
-    <Compile Include="FileHandling\XmlDeserializerTest.cs" />
-    <Compile Include="FileHandling\XmlSerializerTest.cs" />
+    <Compile Include="FileHandling\XmlDeserializerTests.cs" />
+    <Compile Include="FileHandling\XmlSerializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,9 +71,9 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Base\Base.csproj">
+    <ProjectReference Include="..\Base\Basics.csproj">
       <Project>{0eeec755-bae4-4a38-8c4a-316fe29b4815}</Project>
-      <Name>Base</Name>
+      <Name>Basics</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

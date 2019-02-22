@@ -1,15 +1,28 @@
-﻿using System;
-using Base.FileHandling;
-using Base.Tests.FileHandling.TestObjects;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿// <copyright file="XmlDeserializerTests.cs" company="Sigi Maier">
+// No copyright
+// </copyright>
 
 namespace Base.Tests.FileHandling
 {
-    [TestClass]
-    public class XmlDeserializerTest
-    {
-        private string applicationPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+    using System;
+    using Basics.FileHandling;
+    using Base.Tests.FileHandling.TestObjects;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+    /// <summary>
+    /// TestClass for <see cref="XmlDeserializer"/>.
+    /// </summary>
+    [TestClass]
+    public class XmlDeserializerTests
+    {
+        private readonly string applicationPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+
+        /// <summary>
+        /// Scenario under test:
+        /// <i>Given</i> <see cref="SimpleTestClassWithoutAttributes"/> instance and a .xml File without Attributes,
+        /// <i>when</i> deserializing the xml File,
+        /// <i>then</i> the instance of <see cref="SimpleTestClassWithoutAttributes"/> contains the expected values.
+        /// </summary>
         [TestMethod]
         public void DeserializeSimpleTestClassWithoutAttributes_FileAndObjectExists_FileIsDeserializedToObjectCorrectly()
         {
@@ -26,6 +39,12 @@ namespace Base.Tests.FileHandling
                 "The deserialized object contains the expected Data.");
         }
 
+        /// <summary>
+        /// Scenario under test:
+        /// <i>Given</i> <see cref="SimpleTestClassDirectory"/> instance and a .xml File with multiple Entries under the same root,
+        /// <i>when</i> deserializing the xml File,
+        /// <i>then</i> the instance of <see cref="SimpleTestClassDirectory"/> contains the expected Data.
+        /// </summary>
         [TestMethod]
         public void DeserializeTestFileWithMultipleEntries_FileAndObjectExists_FileIsDeserializedToObjectCorrectly()
         {
