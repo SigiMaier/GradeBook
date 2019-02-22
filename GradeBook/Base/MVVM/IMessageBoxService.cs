@@ -1,13 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="IMessageBoxService.cs" company="Sigi Maier">
+// No copyright
+// </copyright>
 
-namespace Base.MVVM
+namespace Basics.MVVM
 {
+    /// <summary>
+    /// Interface for Message Service in order to show MessageBoxes from ViewModels
+    /// </summary>
     public interface IMessageBoxService
     {
-        void ShowInfoMessage(string text, string caption);
+        /// <summary>
+        /// Shows an Info Message.
+        /// </summary>
+        /// <param name="message">The Message to display.</param>
+        /// <param name="caption">The Caption of the MessageBox.</param>
+        void ShowInfoMessage(string message, string caption);
     }
 }

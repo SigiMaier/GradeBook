@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="ViewModelBase.cs" company="Sigi Maier">
+// No copyright
+// </copyright>
 
-namespace Base.MVVM
+namespace Basics.MVVM
 {
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+
     /// <summary>
     /// BaseClasse for ViewModels.
     /// Depending on the needs of the project this Class can be extended.

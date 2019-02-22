@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBook", "GradeBook\Grad
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBook.Tests", "GradeBook.Tests\GradeBook.Tests.csproj", "{7C4DF92D-22EA-4D30-B77C-44953074CBCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base", "Base\Base.csproj", "{0EEEC755-BAE4-4A38-8C4A-316FE29B4815}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basics", "Base\Basics.csproj", "{0EEEC755-BAE4-4A38-8C4A-316FE29B4815}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base.Tests", "Base.Test\Base.Tests.csproj", "{6910F4B2-CA4B-4672-BBB7-734C75F322EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basics.Tests", "Base.Test\Basics.Tests.csproj", "{6910F4B2-CA4B-4672-BBB7-734C75F322EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

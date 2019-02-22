@@ -1,16 +1,29 @@
-﻿using System;
-using System.IO;
-using Base.FileHandling;
-using Base.Tests.FileHandling.TestObjects;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿// <copyright file="XmlSerializerTests.cs" company="Sigi Maier">
+// No copyright
+// </copyright>
 
 namespace Base.Tests.FileHandling
 {
+    using System;
+    using System.IO;
+    using Basics.FileHandling;
+    using Base.Tests.FileHandling.TestObjects;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    /// <summary>
+    /// TestClass for <see cref="XmlSerializer"/>.
+    /// </summary>
     [TestClass]
     public class XmlSerializerTests
     {
         private readonly string applicationPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
 
+        /// <summary>
+        /// Scenario under test:
+        /// <i>Given</i> <seealso cref="SimpleTestClassWithoutAttributes"/> instance,
+        /// <i>when</i> serializing the object,
+        /// <i>then</i> the File is created.
+        /// </summary>
         [TestMethod]
         public void XmlSerializeSimpleClassToFile_SimpleTestClassExists_FileIsCreated()
         {
@@ -34,6 +47,12 @@ namespace Base.Tests.FileHandling
             File.Delete(fileName);
         }
 
+        /// <summary>
+        /// Scenario under test:
+        /// <i>Given</i> <see cref="SimpleTestClassWithUsageOfXmlElement"/> instance,
+        /// <i>when</i> serializing the object,
+        /// <i>then</i> the File is created.
+        /// </summary>
         [TestMethod]
         public void XmlSerializeTestClassWithUsageOfXmlElement_TestClassExists_FileIsCreated()
         {
@@ -57,6 +76,12 @@ namespace Base.Tests.FileHandling
             File.Delete(fileName);
         }
 
+        /// <summary>
+        /// Scenario under test:
+        /// <i>Given</i> <see cref="SimpleTestClassWithUsageOfXmlAttribute"/> instance,
+        /// <i>when</i> serializing the object,
+        /// <i>then</i> the file is created.
+        /// </summary>
         [TestMethod]
         public void XmlSerializeTestClassWithUsageOfXmlAttribute_TestClassExists_FileExists()
         {
@@ -80,6 +105,12 @@ namespace Base.Tests.FileHandling
             File.Delete(fileName);
         }
 
+        /// <summary>
+        /// Scenario under test:
+        /// <i>Given</i> <see cref="SimpleTestClassWithUsageOfXmlRoot"/> instance,
+        /// <i>when</i> serializing the object,
+        /// <i>then</i> the file is created.
+        /// </summary>
         [TestMethod]
         public void XmlSerializeTestClassWithUsageOfXmlRoot_TestClassExists_FileExists()
         {
@@ -103,16 +134,26 @@ namespace Base.Tests.FileHandling
             File.Delete(fileName);
         }
 
+        /// <summary>
+        /// Scenario under test:
+        /// <i>Given</i> <see cref="SimpleTestClassDirectory"/> instance,
+        /// <i>when</i> serializing the object,
+        /// <i>then</i> the file is created.
+        /// </summary>
         [TestMethod]
         public void XmlSerializeSimpleTestClassDirectory_TestClassExists_FileExists()
         {
             // Arrange
-            SimpleTestClassDirectory testClassDirectory = new SimpleTestClassDirectory();
-            testClassDirectory.TestClasses = new System.Collections.Generic.List<SimpleTestClassWithoutAttributes>();
-            testClassDirectory.TestClasses.Add(new SimpleTestClassWithoutAttributes()
-            { HouseNumber = 4, StreetName = "Edlinger Str.", City = "Baierbarch" });
-            testClassDirectory.TestClasses.Add(new SimpleTestClassWithoutAttributes()
-            { HouseNumber = 5, StreetName = "Simssee Straße", City = "Stephanskirchen" });
+            SimpleTestClassDirectory testClassDirectory = new SimpleTestClassDirectory
+            {
+                TestClasses = new System.Collections.Generic.List<SimpleTestClassWithoutAttributes>
+            {
+                new SimpleTestClassWithoutAttributes()
+                { HouseNumber = 4, StreetName = "Edlinger Str.", City = "Baierbarch" },
+                new SimpleTestClassWithoutAttributes()
+                { HouseNumber = 5, StreetName = "Simssee Straße", City = "Stephanskirchen" }
+            }
+            };
 
             string fileName = this.applicationPath + "\\simpleTestClassDirectory.xml";
 

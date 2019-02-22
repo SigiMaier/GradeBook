@@ -13,7 +13,7 @@ namespace Base.Tests.FileHandling.TestObjects
     public class SimpleTestClassDirectory
     {
         /// <summary>
-        /// A List of TestClasses that have to be serialized.
+        /// Gets or sets  List of TestClasses that have to be serialized.
         /// </summary>
         [XmlElement("SimpleTestClassWithoutAttributes")]
         public List<SimpleTestClassWithoutAttributes> TestClasses { get; set; }

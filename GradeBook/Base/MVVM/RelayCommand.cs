@@ -2,7 +2,7 @@
 // No copyright
 // </copyright>
 
-namespace Base.MVVM
+namespace Basics.MVVM
 {
     using System;
     using System.Windows.Input;
