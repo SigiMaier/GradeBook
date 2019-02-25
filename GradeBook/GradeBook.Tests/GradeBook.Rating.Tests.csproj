@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6910F4B2-CA4B-4672-BBB7-734C75F322EE}</ProjectGuid>
+    <ProjectGuid>{7C4DF92D-22EA-4D30-B77C-44953074CBCD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Basics.Tests</RootNamespace>
-    <AssemblyName>Basics.Tests</AssemblyName>
+    <RootNamespace>GradeBook.Rating.Tests</RootNamespace>
+    <AssemblyName>GradeBook.Rating.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -29,7 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Basics.Tests.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\GradeBook.Rating.Tests.xml</DocumentationFile>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -49,16 +49,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileHandling\TestObjects\SimpleTestClassDirectory.cs" />
-    <Compile Include="FileHandling\TestObjects\SimpleTestClassWithoutAttributes.cs" />
-    <Compile Include="FileHandling\TestObjects\SimpleTestClassWithUsageOfXmlAttribute.cs" />
-    <Compile Include="FileHandling\TestObjects\SimpleTestClassWithUsageOfXmlElement.cs" />
-    <Compile Include="FileHandling\TestObjects\SimpleTestClassWithUsageOfXmlRoot.cs" />
-    <Compile Include="FileHandling\XmlDeserializerTests.cs" />
-    <Compile Include="FileHandling\XmlSerializerTests.cs" />
+    <Compile Include="Ratings\RatingSchemeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,20 +63,14 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Base\Basics.csproj">
-      <Project>{0eeec755-bae4-4a38-8c4a-316fe29b4815}</Project>
-      <Name>Basics</Name>
+    <ProjectReference Include="..\GradeBook.Rating\GradeBook.Rating.csproj">
+      <Project>{5962BC2A-B133-4713-AA1F-E410F4EA119E}</Project>
+      <Name>GradeBook.Rating</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FileHandling\TestFiles\SimpleTestClassWithoutAttributesFile.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FileHandling\TestFiles\TestFileWithMultipleEntries.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\GradeBook\GradeBook.csproj">
+      <Project>{c2f814b2-6d28-405d-95ad-5fac78681b91}</Project>
+      <Name>GradeBook</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

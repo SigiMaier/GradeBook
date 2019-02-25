@@ -7,7 +7,7 @@ namespace Base.Tests.FileHandling
     using System;
     using System.IO;
     using Basics.FileHandling;
-    using Base.Tests.FileHandling.TestObjects;
+    using Basics.Tests.FileHandling.TestObjects;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>

@@ -5,11 +5,15 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBook", "GradeBook\GradeBook.csproj", "{C2F814B2-6D28-405D-95AD-5FAC78681B91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBook.Tests", "GradeBook.Tests\GradeBook.Tests.csproj", "{7C4DF92D-22EA-4D30-B77C-44953074CBCD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBook.Rating.Tests", "GradeBook.Tests\GradeBook.Rating.Tests.csproj", "{7C4DF92D-22EA-4D30-B77C-44953074CBCD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basics", "Base\Basics.csproj", "{0EEEC755-BAE4-4A38-8C4A-316FE29B4815}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basics.Tests", "Base.Test\Basics.Tests.csproj", "{6910F4B2-CA4B-4672-BBB7-734C75F322EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBook.Wpf", "GradeBook.Wpf\GradeBook.Wpf.csproj", "{44865B7B-6801-4138-AC85-B8E12397A953}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradeBook.Rating", "GradeBook.Rating\GradeBook.Rating.csproj", "{5962BC2A-B133-4713-AA1F-E410F4EA119E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{6910F4B2-CA4B-4672-BBB7-734C75F322EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6910F4B2-CA4B-4672-BBB7-734C75F322EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6910F4B2-CA4B-4672-BBB7-734C75F322EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44865B7B-6801-4138-AC85-B8E12397A953}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44865B7B-6801-4138-AC85-B8E12397A953}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44865B7B-6801-4138-AC85-B8E12397A953}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44865B7B-6801-4138-AC85-B8E12397A953}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5962BC2A-B133-4713-AA1F-E410F4EA119E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5962BC2A-B133-4713-AA1F-E410F4EA119E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5962BC2A-B133-4713-AA1F-E410F4EA119E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5962BC2A-B133-4713-AA1F-E410F4EA119E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

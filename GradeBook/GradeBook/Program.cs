@@ -1,5 +1,5 @@
 ﻿using GradeBook;
-using GradeBook.MVVM.Views;
+using GradeBook.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;

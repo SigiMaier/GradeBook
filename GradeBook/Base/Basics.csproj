@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -47,6 +53,8 @@
   <ItemGroup>
     <Compile Include="FileHandling\XmlDeserializer.cs" />
     <Compile Include="FileHandling\XmlSerializer.cs" />
+    <Compile Include="MVVM\FileDialogService.cs" />
+    <Compile Include="MVVM\IFileDialogService.cs" />
     <Compile Include="MVVM\IMessageBoxService.cs" />
     <Compile Include="MVVM\MessageBoxService.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />
