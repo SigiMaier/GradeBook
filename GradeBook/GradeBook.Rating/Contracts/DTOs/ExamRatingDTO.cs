@@ -2,14 +2,14 @@
 // No copyright
 // </copyright>
 
-namespace GradeBook.Wpf.MVVM.Model
+namespace GradeBook.Rating.Contracts
 {
     using System.Collections.Generic;
 
     /// <summary>
     /// Model for Serializing and Deserializing of the ExamRatings.
     /// </summary>
-    public class ExamRatingModel
+    public class ExamRatingDTO
     {
         /// <summary>
         /// Gets or sets the ExamName.
@@ -27,13 +27,13 @@ namespace GradeBook.Wpf.MVVM.Model
         public double TotalPoints { get; set; }
 
         /// <summary>
-        /// Gets or sets the PointsPerProblems as in <see cref="ProblemModel"/>.
+        /// Gets or sets the PointsPerProblems as in <see cref="ProblemDTO"/>.
         /// </summary>
-        public List<ProblemModel> PointsPerProblems { get; set; }
+        public List<ProblemDTO> PointsPerProblems { get; set; }
 
         /// <summary>
-        /// Gets or sets the PointsPerGrade as in <see cref="GradeRatingModel"/>.
+        /// Gets or sets the PointsPerGrade as in <see cref="GradeRatingDTO"/>.
         /// </summary>
-        public List<GradeRatingModel> PointsPerGrade { get; set; }
+        public List<GradeRatingDTO> PointsPerGrade { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
     using System.Linq;
     using System.Windows.Input;
     using Basics.MVVM;
-    using GradeBook.Wpf.MVVM.Model;
+    using GradeBook.Rating.Contracts;
 
     /// <summary>
     /// ViewModel for <see cref="Views.RatingView"/>.
@@ -26,8 +26,8 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         private ICommand calculateRatingCommand;
         private ICommand saveRatingCommand;
 
-        private ObservableCollection<ProblemModel> problems;
-        private ObservableCollection<GradeRatingModel> gradeRatings;
+        private ObservableCollection<ProblemDTO> problems;
+        private ObservableCollection<GradeRatingDTO> gradeRatings;
 
         private string examName;
         private int numberOfProblems;
@@ -40,8 +40,8 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         {
             this.messageBoxService = new MessageBoxService();
             this.fileDialogService = new FileDialogService();
-            this.problems = new ObservableCollection<ProblemModel>();
-            this.gradeRatings = new ObservableCollection<GradeRatingModel>();
+            this.problems = new ObservableCollection<ProblemDTO>();
+            this.gradeRatings = new ObservableCollection<GradeRatingDTO>();
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         /// Gets or sets the Values for the Problems and raises OnPropertyChanged for this property and the
         /// SaveRatingsEnabled Property.
         /// </summary>
-        public ObservableCollection<ProblemModel> Problems
+        public ObservableCollection<ProblemDTO> Problems
         {
             get
             {
@@ -114,7 +114,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         /// <summary>
         /// Gets or sets the Values for GradeRatings and raises OnPropertyChanged for this Property.
         /// </summary>
-        public ObservableCollection<GradeRatingModel> GradeRatings
+        public ObservableCollection<GradeRatingDTO> GradeRatings
         {
             get
             {
@@ -195,7 +195,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         private void AddProblem()
         {
             this.numberOfProblems++;
-            this.Problems.Add(new ProblemModel()
+            this.Problems.Add(new ProblemDTO()
             { ProblemName = $"Problem{this.numberOfProblems}", PointsForProblem = 0 });
         }
 
@@ -225,7 +225,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
 
         private void SaveRating()
         {
-            ExamRatingModel examRatingModel = new ExamRatingModel
+            ExamRatingDTO examRatingModel = new ExamRatingDTO
             {
                 ExamName = this.ExamName,
                 NumberOfProblems = this.numberOfProblems,
@@ -234,7 +234,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
                 TotalPoints = this.totalPoints
             };
 
-            this.fileDialogService.OpenFileDialog(examRatingModel);
+            this.fileDialogService.OpenSaveFileDialog(examRatingModel);
         }
 
         private List<int> GetPointsPerProblem()
@@ -255,7 +255,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
 
             foreach (var item in this.rating.Rating.PointsPerGrade)
             {
-                this.GradeRatings.Add(new GradeRatingModel()
+                this.GradeRatings.Add(new GradeRatingDTO()
                 {
                     Grade = item.Key,
                     LowerBoundary = item.Value[0],

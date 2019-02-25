@@ -209,7 +209,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
 
         private void SaveStudents()
         {
-            this.fileDialogService.OpenFileDialog(this.Students);
+            this.fileDialogService.OpenSaveFileDialog(this.Students);
         }
 
         private bool SetAddStudentEnabled()

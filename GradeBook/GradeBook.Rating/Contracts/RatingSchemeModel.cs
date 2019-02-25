@@ -2,11 +2,10 @@
 // No copyright
 // </copyright>
 
-namespace GradeBook.Wpf.MVVM.Model
+namespace GradeBook.Rating.Contracts
 {
     using System.Collections.Generic;
     using GradeBook.Rating;
-    using GradeBook.Rating.Contracts;
 
     /// <summary>
     /// Class that handles the RatingSchemeModel.

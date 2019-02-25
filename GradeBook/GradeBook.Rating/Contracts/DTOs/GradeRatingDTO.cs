@@ -2,12 +2,12 @@
 // No copyright
 // </copyright>
 
-namespace GradeBook.Wpf.MVVM.Model
+namespace GradeBook.Rating.Contracts
 {
     /// <summary>
     /// Model that contains the Grade Ratings.
     /// </summary>
-    public class GradeRatingModel
+    public class GradeRatingDTO
     {
         /// <summary>
         /// Gets or sets the Grade.

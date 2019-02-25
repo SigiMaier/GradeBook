@@ -53,10 +53,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\Model\Rating\ExamRatingModel.cs" />
-    <Compile Include="MVVM\Model\Rating\GradeRatingModel.cs" />
-    <Compile Include="MVVM\Model\Rating\ProblemModel.cs" />
-    <Compile Include="MVVM\Model\Rating\RatingSchemeModel.cs" />
+    <Compile Include="MVVM\Model\ExamGradingDTO.cs" />
     <Compile Include="MVVM\ViewModel\GradingViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainWindowViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RatingViewModel.cs" />
@@ -120,8 +117,6 @@
       <Name>GradeBook.Rating</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MVVM\Model\Students\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

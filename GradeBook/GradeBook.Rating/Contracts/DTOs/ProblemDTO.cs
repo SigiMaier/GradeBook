@@ -2,12 +2,12 @@
 // No copyright
 // </copyright>
 
-namespace GradeBook.Wpf.MVVM.Model
+namespace GradeBook.Rating.Contracts
 {
     /// <summary>
     /// Model that contains information for a single Problem in the Exam.
     /// </summary>
-    public class ProblemModel
+    public class ProblemDTO
     {
         /// <summary>
         /// Gets or sets the ProblemName.

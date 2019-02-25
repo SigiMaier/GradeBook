@@ -8,6 +8,8 @@ namespace Basics.MVVM
 {
     public interface IFileDialogService
     {
-        void OpenFileDialog<T>(T model);
+        void OpenSaveFileDialog<T>(T model);
+
+        T OpenLoadFileDialog<T>();
     }
 }
