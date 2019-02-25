@@ -2,7 +2,7 @@
 // No copyright
 // </copyright>
 
-namespace Base.Tests.FileHandling.TestObjects
+namespace Basics.Tests.FileHandling.TestObjects
 {
     /// <summary>
     /// A TestClass for Testing Serialization and deserialization of xml files without attributes.

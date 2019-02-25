@@ -2,7 +2,7 @@
 // No copyright
 // </copyright>
 
-namespace Base.Tests.FileHandling.TestObjects
+namespace Basics.Tests.FileHandling.TestObjects
 {
     using System.Xml.Serialization;
 
