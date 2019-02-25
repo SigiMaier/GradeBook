@@ -7,7 +7,116 @@
              xmlns:viewModels="clr-namespace:GradeBook.Wpf.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Label>Students</Label>
-    </Grid>
+    <UserControl.DataContext>
+        <viewModels:StudentsViewModel/>
+    </UserControl.DataContext>
+    <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Name"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Height="Auto"
+                   Width="Auto"
+                   Margin="5,5,0,0"/>
+            <Label Content="First Name"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   Height="Auto"
+                   Width="Auto"
+                   Margin="5,5,0,0"/>
+            <Label Content="Matriculation Nr."
+                   Grid.Row="0"
+                   Grid.Column="2"
+                   Height="Auto"
+                   Width="Auto"
+                   Margin="5,5,0,0"/>
+            <Label Content="Attended"
+                   Grid.Row="0"
+                   Grid.Column="3"
+                   Height="Auto"
+                   Width="Auto"
+                   Margin="5,5,0,0"/>
+            <TextBox Text="{Binding StudentName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Grid.Row="1"
+                     Grid.Column="0"
+                     Height="30"
+                     Width="100"
+                     Margin="5,5,0,0"/>
+            <TextBox Text="{Binding StudentFirstName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Grid.Row="1"
+                     Grid.Column="1"
+                     Height="30"
+                     Width="100"
+                     Margin="5,5,0,0"/>
+            <TextBox Text="{Binding MatriculationNumber, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                     Grid.Row="1"
+                     Grid.Column="2"
+                     Height="30"
+                     Width="100"
+                     Margin="5,5,0,0"/>
+            <CheckBox IsChecked="{Binding StudentAttended, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                      Grid.Row="1"
+                      Grid.Column="3"
+                      Height="Auto"
+                      Width="Auto"
+                      Margin="30,10,0,0"/>
+            <Button Content="Add Student"
+                    Command="{Binding AddStudentCommand}"
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    Height="Auto"
+                    Width="100"
+                    Margin="5,5,0,0"
+                    IsEnabled="{Binding AddStudentEnabled}"/>
+            <DataGrid ItemsSource="{Binding Students, Mode=TwoWay, UpdateSourceTrigger=Default}"
+                      CanUserAddRows="False"
+                      Margin="5,5,18,0"
+                      SelectedItem="{Binding SelectedStudent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Grid.Row="2"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"/>
+            <Button Content="Remove Student"
+                    Command="{Binding RemoveStudentCommand}"
+                    Grid.Row="2"
+                    Grid.Column="4"
+                    Height="30"
+                    Width="100"
+                    Margin="5,5,0,0"
+                    IsEnabled="{Binding RemoveStudentEnabled}"/>
+            <Button Content="Save Students"
+                    Command="{Binding SaveStudentsCommand}"
+                    Grid.Row="2"
+                    Grid.Column="5"
+                    Grid.ColumnSpan="1"
+                    Height="30"
+                    Width="100"
+                    Margin="5,5,0,0"
+                    IsEnabled="{Binding SaveStudentsEnabled}"/>
+        </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+
+
+        </Grid>
+    </StackPanel>
 </UserControl>

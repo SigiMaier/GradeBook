@@ -1,14 +1,13 @@
-﻿using GradeBook;
-using GradeBook.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿// <copyright file="Program.cs" company="Sigi Maier">
+// No copyright
+// </copyright>
 
 namespace GradeBook
 {
+    using System;
+    using System.Windows;
+    using GradeBook.Wpf;
+
     class Program
     {
         [STAThread]
