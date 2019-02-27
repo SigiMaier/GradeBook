@@ -5,6 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GradeBook.Wpf.MVVM.Views"
              xmlns:viewModels="clr-namespace:GradeBook.Wpf.MVVM.ViewModel"
+             xmlns:primitives="clr-namespace:System.Windows.Controls.Primitives;assembly=System.Windows.Controls.Data"
+             xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+             xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
@@ -27,10 +30,80 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Margin="5,5,0,0"/>
-        <DataGrid ItemsSource="{Binding Gradings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  Margin="5,5,0,0"
-                  Grid.Row="1"
-                  Grid.Column="0"/>
+        <Grid x:Name="LayoutRoot"
+              Grid.Row="1"
+              Grid.Column="0">
+            <ScrollViewer x:Name="PageScrollViewer">
+                <StackPanel x:Name="ContentStackPanel">
+                    <TextBlock x:Name="HeaderText"
+                               Text="Student Overview"/>
+                    <DataGrid ItemsSource="{Binding Gradings}"
+                              AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding MatriculationNumber}"
+                                                Header="Matriculation Number"/>
+                            <DataGridTemplateColumn>
+                                <DataGridTemplateColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment"
+                                                Value="Stretch"/>
+                                        <Setter Property="VerticalContentAlignment"
+                                                Value="Stretch"/>
+                                        <Setter Property="Margin"
+                                                Value="0"/>
+                                        <Setter Property="ContentTemplate">
+                                            <Setter.Value>
+                                                <DataTemplate>
+                                                    <ItemsControl ItemsSource="{Binding DataContext.ProblemList, ElementName=LayoutRoot}">
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                </StackPanel>
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Border Width="70">
+                                                                    <TextBox Text="{Binding}"
+                                                                               TextAlignment="Center"/>
+                                                                </Border>
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>                                                           
+                                                </DataTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </DataGridTemplateColumn.HeaderStyle>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ItemsControl ItemsSource="{Binding PointsPerProblem}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Border Width="70">
+                                                        <TextBox Text="{Binding}"
+                                                                   TextAlignment="Center"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Binding="{Binding Grade}"
+                                                Header="Grade"/>
+                            <DataGridTextColumn Binding="{Binding TotalScore}"
+                                                Header="Total Score"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
         <Button Content="Calculate Exam Grading"
                 Command="{Binding CalculateExamGradingCommand}"
                 Grid.Row="2"

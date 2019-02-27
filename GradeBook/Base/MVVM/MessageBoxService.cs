@@ -4,6 +4,7 @@
 
 namespace Basics.MVVM
 {
+    using System;
     using System.Windows;
 
     /// <summary>
@@ -19,6 +20,11 @@ namespace Basics.MVVM
         public void ShowInfoMessage(string message, string caption)
         {
            MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        public void ShowErrorMessage(string message, Exception exception)
+        {
+            MessageBox.Show(message + "\n\rException:\n\r" + exception, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

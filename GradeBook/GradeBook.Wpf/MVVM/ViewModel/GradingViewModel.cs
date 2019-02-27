@@ -6,6 +6,8 @@ namespace GradeBook.Wpf.MVVM.ViewModel
 {
     using Basics.MVVM;
     using GradeBook.Rating.Contracts;
+    using GradeBook.Wpf.MVVM.Model;
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
@@ -22,11 +24,12 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         private ICommand calculateExamGradingCommand;
         private ICommand saveGradingCommand;
 
-        private ObservableCollection<GradingDTO> gradings;
+        private ObservableCollection<GradingModel> gradings;
+        private List<string> problemList;
 
         public GradingViewModel()
         {
-            this.gradings = new ObservableCollection<GradingDTO>();
+            this.gradings = new ObservableCollection<GradingModel>();
             this.fileDialogService = new FileDialogService();
             this.messageBoxService = new MessageBoxService();
         }
@@ -58,7 +61,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
-        public ObservableCollection<GradingDTO> Gradings
+        public ObservableCollection<GradingModel> Gradings
         {
             get
             {
@@ -69,6 +72,20 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             {
                 this.gradings = value;
                 this.OnPropertyChanged(nameof(this.Gradings));
+            }
+        }
+
+        public List<string> ProblemList
+        {
+            get
+            {
+                return this.problemList;
+            }
+
+            set
+            {
+                this.problemList = value;
+                this.OnPropertyChanged(nameof(this.ProblemList));
             }
         }
 
@@ -84,17 +101,55 @@ namespace GradeBook.Wpf.MVVM.ViewModel
 
         private void GetGradingForm()
         {
+            ExamRatingDTO examRatingModel = new ExamRatingDTO();
+            List<StudentDTO> students = new List<StudentDTO>();
+
             this.messageBoxService.ShowInfoMessage(
                 "Please Select a xml-File containing the Exam Ratings.",
                 "Select a Exam Rating File.");
-            ExamRatingDTO examRatingModel = this.fileDialogService.OpenLoadFileDialog<ExamRatingDTO>();
+            try
+            {
+               examRatingModel = this.fileDialogService.OpenLoadFileDialog<ExamRatingDTO>();
+            }
+            catch (InvalidOperationException ex)
+            {
+                this.messageBoxService.ShowErrorMessage("Please select a correct Exam Rating File.", ex);
+            }
+
             this.messageBoxService.ShowInfoMessage(
                 "Please Select a xml-File containing the Students Information.",
                 "Select a Student Information File.");
-            List<StudentDTO> students = this.fileDialogService.OpenLoadFileDialog<List<StudentDTO>>();
+            try
+            {
+                students = this.fileDialogService.OpenLoadFileDialog<List<StudentDTO>>();
+            }
+            catch (InvalidOperationException ex)
+            {
+                this.messageBoxService.ShowErrorMessage("Please select a correct Students File.", ex);
+            }
 
+            ObservableCollection<GradingModel> tmpGradings = new ObservableCollection<GradingModel>();
 
-            this.OnPropertyChanged(nameof(this.CalculateExamGradingEnabled));
+            foreach (var student in students)
+            {
+                tmpGradings.Add(new GradingModel()
+                {
+                    MatriculationNumber = student.MatriculationNumber.ToString(),
+                    PointsPerProblems = new List<double>(),
+                    Grade = 0.0,
+                    TotalScore = 0.0
+                });
+            }
+
+            List<string> tmpProblemList = new List<string>();
+
+            foreach (var problem in examRatingModel.PointsPerProblems)
+            {
+                tmpProblemList.Add(problem.ProblemName);
+            }
+
+            this.Gradings = tmpGradings;
+            this.ProblemList = tmpProblemList;
         }
 
         private void CalculateGrading()
