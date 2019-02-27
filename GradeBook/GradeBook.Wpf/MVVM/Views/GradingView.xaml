@@ -64,7 +64,7 @@
                                                         <ItemsControl.ItemTemplate>
                                                             <DataTemplate>
                                                                 <Border Width="70">
-                                                                    <TextBox Text="{Binding}"
+                                                                    <TextBlock Text="{Binding}"
                                                                                TextAlignment="Center"/>
                                                                 </Border>
                                                             </DataTemplate>
