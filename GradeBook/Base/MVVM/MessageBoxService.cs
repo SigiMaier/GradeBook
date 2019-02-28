@@ -26,5 +26,11 @@ namespace Basics.MVVM
         {
             MessageBox.Show(message + "\n\rException:\n\r" + exception, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+        public string ShowInputMessage(string message)
+        {
+
+            return string.Empty;
+        }
     }
 }

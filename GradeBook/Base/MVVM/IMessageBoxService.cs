@@ -19,5 +19,7 @@ namespace Basics.MVVM
         void ShowInfoMessage(string message, string caption);
 
         void ShowErrorMessage(string message, Exception exception);
+
+        string ShowInputMessage(string message);
     }
 }

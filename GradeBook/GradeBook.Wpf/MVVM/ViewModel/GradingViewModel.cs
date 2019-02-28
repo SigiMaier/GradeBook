@@ -10,6 +10,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows.Input;
 
     /// <summary>
@@ -21,6 +22,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         private readonly IMessageBoxService messageBoxService;
 
         private ICommand getGradingFormCommand;
+        private ICommand enterPointsPerProblemForEachStudentCommand;
         private ICommand calculateExamGradingCommand;
         private ICommand saveGradingCommand;
 
@@ -40,6 +42,16 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             {
                 return this.getGradingFormCommand ??
                     (this.getGradingFormCommand = new RelayCommand(_ => this.GetGradingForm()));
+            }
+        }
+
+        public ICommand EnterPointsPerProblemForEachStudentCommand
+        {
+            get
+            {
+                return this.enterPointsPerProblemForEachStudentCommand ??
+                    (this.enterPointsPerProblemForEachStudentCommand = new RelayCommand(_ =>
+                    this.EnterPointsPerProblemForEachStudent()));
             }
         }
 
@@ -72,6 +84,11 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             {
                 this.gradings = value;
                 this.OnPropertyChanged(nameof(this.Gradings));
+
+                foreach (var item in this.Gradings)
+                {
+                    this.OnPropertyChanged(nameof(item.PointsPerProblems));
+                }
             }
         }
 
@@ -89,13 +106,21 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
-        public bool CalculateExamGradingEnabled
+        public bool EnterPointsPerProblemEnabled
         {
             get
             {
                 return this.Gradings.Count > 0;
             }
         }
+
+        //public bool CalculateExamGradingEnabled
+        //{
+        //    get
+        //    {
+        //      //  return this.Gradings.Any(g => g.PointsPerProblems.Any(p => p != 0.0));
+        //    }
+        //}
 
         public bool SaveGradingEnabled { get; private set; }
 
@@ -128,14 +153,12 @@ namespace GradeBook.Wpf.MVVM.ViewModel
                 this.messageBoxService.ShowErrorMessage("Please select a correct Students File.", ex);
             }
 
-            ObservableCollection<GradingModel> tmpGradings = new ObservableCollection<GradingModel>();
-
             foreach (var student in students)
             {
-                tmpGradings.Add(new GradingModel()
+                this.Gradings.Add(new GradingModel()
                 {
                     MatriculationNumber = student.MatriculationNumber.ToString(),
-                    PointsPerProblems = new List<double>(),
+                    PointsPerProblems = new ObservableCollection<PointsPerProblemItem>(),
                     Grade = 0.0,
                     TotalScore = 0.0
                 });
@@ -148,12 +171,24 @@ namespace GradeBook.Wpf.MVVM.ViewModel
                 tmpProblemList.Add(problem.ProblemName);
             }
 
-            this.Gradings = tmpGradings;
+            foreach (var grading in this.Gradings)
+            {
+                for (int i = 0; i < tmpProblemList.Count; i++)
+                {
+                    grading.PointsPerProblems.Add(new PointsPerProblemItem() { DoubleValue = 0.0 });
+                }
+            }
+
             this.ProblemList = tmpProblemList;
+        }
+
+        private void EnterPointsPerProblemForEachStudent()
+        {
         }
 
         private void CalculateGrading()
         {
+            //this.OnPropertyChanged(nameof(this.Gradings));
             this.SaveGradingEnabled = true;
             this.OnPropertyChanged(nameof(this.SaveGradingEnabled));
         }
