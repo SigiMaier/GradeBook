@@ -53,7 +53,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\Model\ExamGradingDTO.cs" />
+    <Compile Include="MVVM\Model\GradingModel.cs" />
     <Compile Include="MVVM\ViewModel\GradingViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainWindowViewModel.cs" />
     <Compile Include="MVVM\ViewModel\RatingViewModel.cs" />
