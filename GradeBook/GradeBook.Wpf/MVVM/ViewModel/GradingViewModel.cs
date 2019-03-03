@@ -20,6 +20,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
     {
         private readonly IFileDialogService fileDialogService;
         private readonly IMessageBoxService messageBoxService;
+        
+        
+
 
         private ICommand getGradingFormCommand;
         private ICommand enterPointsPerProblemForEachStudentCommand;
@@ -29,11 +32,16 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         private ObservableCollection<GradingModel> gradings;
         private List<string> problemList;
 
+        private ExamRatingDTO examRating;
+        private List<StudentDTO> students;
+
         public GradingViewModel()
         {
             this.gradings = new ObservableCollection<GradingModel>();
             this.fileDialogService = new FileDialogService();
             this.messageBoxService = new MessageBoxService();
+            this.examRating = new ExamRatingDTO();
+            this.students = new List<StudentDTO>();
         }
 
         public ICommand GetGradingFormCommand
@@ -114,27 +122,16 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
-        //public bool CalculateExamGradingEnabled
-        //{
-        //    get
-        //    {
-        //      //  return this.Gradings.Any(g => g.PointsPerProblems.Any(p => p != 0.0));
-        //    }
-        //}
-
         public bool SaveGradingEnabled { get; private set; }
 
         private void GetGradingForm()
         {
-            ExamRatingDTO examRatingModel = new ExamRatingDTO();
-            List<StudentDTO> students = new List<StudentDTO>();
-
             this.messageBoxService.ShowInfoMessage(
                 "Please Select a xml-File containing the Exam Ratings.",
                 "Select a Exam Rating File.");
             try
             {
-               examRatingModel = this.fileDialogService.OpenLoadFileDialog<ExamRatingDTO>();
+               this.examRating = this.fileDialogService.OpenLoadFileDialog<ExamRatingDTO>();
             }
             catch (InvalidOperationException ex)
             {
@@ -146,7 +143,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
                 "Select a Student Information File.");
             try
             {
-                students = this.fileDialogService.OpenLoadFileDialog<List<StudentDTO>>();
+                this.students = this.fileDialogService.OpenLoadFileDialog<List<StudentDTO>>();
             }
             catch (InvalidOperationException ex)
             {
@@ -166,7 +163,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
 
             List<string> tmpProblemList = new List<string>();
 
-            foreach (var problem in examRatingModel.PointsPerProblems)
+            foreach (var problem in this.examRating.PointsPerProblems)
             {
                 tmpProblemList.Add(problem.ProblemName);
             }
@@ -175,11 +172,38 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             {
                 for (int i = 0; i < tmpProblemList.Count; i++)
                 {
-                    grading.PointsPerProblems.Add(new PointsPerProblemItem() { DoubleValue = 0.0 });
+                    grading.PointsPerProblems.Add(new PointsPerProblemItem() { PointsPerProblemValue = 0.0 });
+                }
+
+                foreach (var pointsPerProblem in grading.PointsPerProblems)
+                {
+                    pointsPerProblem.PointsPerProblemValueChanged += this.PointsPerProblem_PointsPerProblemValueChanged;
                 }
             }
 
             this.ProblemList = tmpProblemList;
+        }
+
+        private void PointsPerProblem_PointsPerProblemValueChanged(object sender, EventArgs e)
+        {
+            PointsPerProblemItem item = sender as PointsPerProblemItem;
+
+            foreach (var grading in this.gradings)
+            {
+                for (int i = 0; i < grading.PointsPerProblems.Count; i++)
+                {
+                    if (grading.PointsPerProblems[i].PointsPerProblemValue < 0
+                        || grading.PointsPerProblems[i].PointsPerProblemValue > this.examRating.PointsPerProblems[i].PointsForProblem)
+                    {
+                        this.messageBoxService.ShowInfoMessage(
+                                $"Please enter a Valid Value for Problem {this.examRating.PointsPerProblems[i].ProblemName}!"
+                                + $"\n\rValue has to be non negative and smaller than {this.examRating.PointsPerProblems[i].PointsForProblem}",
+                                "Invalid Value");
+
+                        return;
+                    }
+                }
+            }
         }
 
         private void EnterPointsPerProblemForEachStudent()
