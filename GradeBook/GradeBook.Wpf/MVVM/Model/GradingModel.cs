@@ -1,50 +1,84 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="GradingModel.cs" company="Sigi Maier">
+// No copyright
+// </copyright>
 
 namespace GradeBook.Wpf.MVVM.Model
 {
-    public class GradingModel
-    {
-        public string MatriculationNumber { get; set; }
-
-        public ObservableCollection<PointsPerProblemItem> PointsPerProblems { get; set; }
-
-        public double Grade { get; set; }
-
-        public double TotalScore { get; set; }
-    }
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using Basics.MVVM;
+    using GradeBook.Rating.Contracts;
 
     /// <summary>
-    /// Wrapper Class for double Values to be able to bind the PointsPerProblems via the ViewModel to the View.
-    /// <see href="https://stackoverflow.com/questions/5972990/wpf-how-to-make-datagrid-binding-with-dynamic-columns-editable"/>
-    /// answer EDIT 2
+    /// Class containing all required Values and Methods to calculate the Grading for an Exam.
+    /// This class needs to implement INotifyPropertyChanged (and is therefore a derivative of ViewModelBase),
+    /// since the Property in <see cref="ViewModel.GradingViewModel"/> containing these Values is bound in the
+    /// <see cref="Views.GradingView"/> to the DataGridTextColumns and was not updated correctly.
     /// </summary>
-    public class PointsPerProblemItem
+    // TODO: Find a better solution for the Updating Problem of the View or move this class to ViewModel-Folder.
+    public class GradingModel : ViewModelBase
     {
-        private double pointsPerProblemValue;
+        private double grade;
+        private double totalScore;
 
-        public event EventHandler PointsPerProblemValueChanged;
+        /// <summary>
+        /// Gets or sets the MatriculationNumber.
+        /// </summary>
+        public string MatriculationNumber { get; set; }
 
-        public double PointsPerProblemValue
+        /// <summary>
+        /// Gets or sets the PointsPerProblems.
+        /// </summary>
+        public ObservableCollection<DoubleItem> PointsPerProblems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Grade.
+        /// </summary>
+        public double Grade
         {
             get
             {
-                return this.pointsPerProblemValue;
+                return this.grade;
             }
 
             set
             {
-                this.pointsPerProblemValue = value;
+                this.grade = value;
+                this.OnPropertyChanged(nameof(this.Grade));
+            }
+        }
 
-                EventHandler handler = this.PointsPerProblemValueChanged;
+        /// <summary>
+        /// Gets or sets the TotalScore.
+        /// </summary>
+        public double TotalScore
+        {
+            get
+            {
+                return this.totalScore;
+            }
 
-                if (handler != null)
+            set
+            {
+                this.totalScore = value;
+                this.OnPropertyChanged(nameof(this.TotalScore));
+            }
+        }
+
+        /// <summary>
+        /// Calculates the Grade and TotalScore.
+        /// </summary>
+        /// <param name="gradeRatings">Contains the values to determine the Grade.</param>
+        public void CalculateGradeAndTotalScore(List<GradeRatingDTO> gradeRatings)
+        {
+            this.TotalScore = this.PointsPerProblems.Sum(n => n.DoubleValue);
+
+            foreach (var gradeRating in gradeRatings)
+            {
+                if (this.totalScore >= gradeRating.LowerBoundary && this.totalScore <= gradeRating.UpperBoundary)
                 {
-                    handler(this, EventArgs.Empty);
+                    this.Grade = gradeRating.Grade;
                 }
             }
         }
