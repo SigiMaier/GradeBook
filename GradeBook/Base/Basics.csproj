@@ -54,6 +54,7 @@
     <Compile Include="FileHandling\XmlDeserializer.cs" />
     <Compile Include="FileHandling\XmlSerializer.cs" />
     <Compile Include="MVVM\Exceptions\InputValueException.cs" />
+    <Compile Include="MVVM\ObservableDictionary.cs" />
     <Compile Include="MVVM\Services\FileDialogService.cs" />
     <Compile Include="MVVM\Services\IFileDialogService.cs" />
     <Compile Include="MVVM\Services\IMessageBoxService.cs" />

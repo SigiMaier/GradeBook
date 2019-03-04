@@ -9,6 +9,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
     using GradeBook.Wpf.MVVM.Model;
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Windows.Input;
 
     /// <summary>
@@ -23,7 +24,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
 
         private List<GradingModel> gradings;
         private List<GradeRatingDTO> gradeRatings;
-        private Dictionary<double, int> gradeNumbers;
+        private ObservableCollection<GradingNumbers> gradeNumbers;
         private ExamRatingDTO examRating;
 
         public StatisticViewModel()
@@ -32,7 +33,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             this.messageBoxService = new MessageBoxService();
             this.gradings = new List<GradingModel>();
             this.gradeRatings = new List<GradeRatingDTO>();
-            this.gradeNumbers = new Dictionary<double, int>();
+            this.gradeNumbers = new ObservableCollection<GradingNumbers>();
             this.examRating = new ExamRatingDTO();
         }
 
@@ -45,7 +46,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
-        public Dictionary<double, int> GradeNumbers
+        public ObservableCollection<GradingNumbers> GradeNumbers
         {
             get
             {
@@ -117,13 +118,16 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         {
             foreach (var gradeRating in this.gradeRatings)
             {
-                this.GradeNumbers.Add(gradeRating.Grade, 0);
+                this.GradeNumbers.Add(new GradingNumbers()
+                {
+                    Grade = gradeRating.Grade
+                });
             }
 
-            foreach (var grading in this.gradings)
-            {
-                this.GradeNumbers[grading.Grade]++;
-            }
+            //foreach (var grading in this.gradings)
+            //{
+            //    this.Grad
+            //}
 
             this.OnPropertyChanged(nameof(this.GradeNumbers));
         }
