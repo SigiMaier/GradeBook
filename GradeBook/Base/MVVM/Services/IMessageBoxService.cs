@@ -2,10 +2,10 @@
 // No copyright
 // </copyright>
 
-using System;
-
 namespace Basics.MVVM
 {
+    using System;
+
     /// <summary>
     /// Interface for Message Service in order to show MessageBoxes from ViewModels
     /// </summary>
@@ -18,8 +18,11 @@ namespace Basics.MVVM
         /// <param name="caption">The Caption of the MessageBox.</param>
         void ShowInfoMessage(string message, string caption);
 
+        /// <summary>
+        /// Shows an Error Message.
+        /// </summary>
+        /// <param name="message">The Message to display.</param>
+        /// <param name="exception">The Exception to display.</param>
         void ShowErrorMessage(string message, Exception exception);
-
-        string ShowInputMessage(string message);
     }
 }

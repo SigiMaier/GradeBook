@@ -176,7 +176,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
 
                 foreach (var pointsPerProblem in grading.PointsPerProblems)
                 {
-                    pointsPerProblem.PointsPerProblemValueChanged += this.PointsPerProblem_PointsPerProblemValueChanged;
+                    pointsPerProblem.DoubleValueChanged += this.PointsPerProblem_PointsPerProblemValueChanged;
                 }
             }
 

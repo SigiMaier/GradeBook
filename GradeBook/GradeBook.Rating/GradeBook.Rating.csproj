@@ -48,11 +48,9 @@
     <Compile Include="Contracts\DTOs\ProblemDTO.cs" />
     <Compile Include="Contracts\RatingSchemeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Contracts\DTOs\GradingDTO.cs" />
     <Compile Include="Contracts\DTOs\RatingSchemeDTO.cs" />
     <Compile Include="Contracts\DTOs\StudentDTO.cs" />
     <Compile Include="Contracts\Exceptions\RatingSchemeException.cs" />
-    <Compile Include="Contracts\IGrading.cs" />
     <Compile Include="Contracts\IRatingScheme.cs" />
     <Compile Include="RatingScheme.cs" />
   </ItemGroup>

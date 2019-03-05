@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="StudentDTO.cs" company="Sigi Maier">
+// No copyright
+// </copyright>
 
 namespace GradeBook.Rating.Contracts
 {
+    /// <summary>
+    /// Represents Student Data.
+    /// </summary>
     public class StudentDTO
     {
         /// <summary>

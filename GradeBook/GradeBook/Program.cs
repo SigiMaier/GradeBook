@@ -8,10 +8,16 @@ namespace GradeBook
     using System.Windows;
     using GradeBook.Wpf;
 
-    class Program
+    /// <summary>
+    /// The Program Class.
+    /// </summary>
+    public static class Program
     {
+        /// <summary>
+        /// The Entrance of the Application.
+        /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        public static void Main()
         {
             var app = new Application();
             app.Run(new MainWindow());

@@ -31,7 +31,6 @@ namespace GradeBook.Wpf.MVVM.ViewModel
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StudentsViewModel"/> class.
-        /// 
         /// </summary>
         public StudentsViewModel()
         {

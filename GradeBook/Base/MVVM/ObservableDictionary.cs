@@ -277,16 +277,6 @@ namespace Basics.MVVM
             this.CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(action, changedItem));
         }
 
-        private void OnCollectionChanged(
-            NotifyCollectionChangedAction action,
-            KeyValuePair<TKey, TValue> newItem,
-            KeyValuePair<TKey, TValue> oldItem)
-        {
-            this.OnPropertyChanged();
-
-            this.CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(action, newItem, oldItem));
-        }
-
         private void OnCollectionChanged(NotifyCollectionChangedAction action, IList newItems)
         {
             this.OnPropertyChanged();

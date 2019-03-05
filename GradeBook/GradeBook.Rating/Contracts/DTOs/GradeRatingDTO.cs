@@ -1,4 +1,4 @@
-﻿// <copyright file="GradeRatingModel.cs" company="Sigi Maier">
+﻿// <copyright file="GradeRatingDTO.cs" company="Sigi Maier">
 // No copyright
 // </copyright>
 
