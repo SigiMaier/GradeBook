@@ -32,11 +32,28 @@
         <WrapPanel Margin="5,5,0,0"
                    Grid.Row="1"
                    Grid.Column="0">
+            
             <DataGrid ItemsSource="{Binding GradeNumbers}"
                       AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Amount" Binding="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGrid.Columns>                    
+                    <DataGridTextColumn Header="Amount" Binding="{Binding Value}" IsReadOnly="True"/>
                 </DataGrid.Columns>
+            </DataGrid>
+
+            <DataGrid ItemsSource="{Binding GradeRatings}"
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Grade}"
+                                        Header="Grade"
+                                        IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding LowerBoundary}"
+                                        Header="From"
+                                        IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding UpperBoundary}"
+                                        Header="To"
+                                        IsReadOnly="True"/>
+                </DataGrid.Columns>
+
             </DataGrid>
             
         </WrapPanel>

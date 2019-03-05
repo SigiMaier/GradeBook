@@ -4,13 +4,13 @@
 
 namespace GradeBook.Wpf.MVVM.ViewModel
 {
-    using Basics.MVVM;
-    using GradeBook.Rating.Contracts;
-    using GradeBook.Wpf.MVVM.Model;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
+    using Basics.MVVM;
+    using GradeBook.Rating.Contracts;
+    using GradeBook.Wpf.MVVM.Model;
 
     /// <summary>
     /// ViewModel for <see cref="Views.StatisticView"/>.
@@ -24,7 +24,6 @@ namespace GradeBook.Wpf.MVVM.ViewModel
 
         private List<GradingModel> gradings;
         private List<GradeRatingDTO> gradeRatings;
-        private ObservableCollection<GradingNumbers> gradeNumbers;
         private ExamRatingDTO examRating;
 
         public StatisticViewModel()
@@ -33,7 +32,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             this.messageBoxService = new MessageBoxService();
             this.gradings = new List<GradingModel>();
             this.gradeRatings = new List<GradeRatingDTO>();
-            this.gradeNumbers = new ObservableCollection<GradingNumbers>();
+            this.GradeNumbers = new ObservableDictionary<double, int>();
             this.examRating = new ExamRatingDTO();
         }
 
@@ -46,19 +45,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
-        public ObservableCollection<GradingNumbers> GradeNumbers
-        {
-            get
-            {
-                return this.gradeNumbers;
-            }
-
-            set
-            {
-                this.gradeNumbers = value;
-                this.OnPropertyChanged(nameof(this.GradeNumbers));
-            }
-        }
+        public ObservableDictionary<double, int> GradeNumbers { get; set; }
 
         public List<GradeRatingDTO> GradeRatings
         {
@@ -76,9 +63,17 @@ namespace GradeBook.Wpf.MVVM.ViewModel
 
         private void LoadStatisticForm()
         {
+            this.ClearCollections();
             this.GetGradeRatings();
             this.LoadGrading();
             this.GetGradeNumbers();
+        }
+
+        private void ClearCollections()
+        {
+            this.gradeRatings.Clear();
+            this.gradings.Clear();
+            this.GradeNumbers.Clear();
         }
 
         private void GetGradeRatings()
@@ -118,18 +113,13 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         {
             foreach (var gradeRating in this.gradeRatings)
             {
-                this.GradeNumbers.Add(new GradingNumbers()
-                {
-                    Grade = gradeRating.Grade
-                });
+                this.GradeNumbers.Add(gradeRating.Grade, 0);
             }
 
-            //foreach (var grading in this.gradings)
-            //{
-            //    this.Grad
-            //}
-
-            this.OnPropertyChanged(nameof(this.GradeNumbers));
+            foreach (var grading in this.gradings)
+            {
+                this.GradeNumbers[grading.Grade]++;
+            }
         }
     }
 }
