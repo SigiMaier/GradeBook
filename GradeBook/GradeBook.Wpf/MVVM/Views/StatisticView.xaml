@@ -33,15 +33,34 @@
                    Grid.Row="1"
                    Grid.Column="0">
             
-            <DataGrid ItemsSource="{Binding GradeNumbers}"
+            <!--<DataGrid ItemsSource="{Binding GradeNumbers}"
                       AutoGenerateColumns="False">
                 <DataGrid.Columns>                    
                     <DataGridTextColumn Header="Amount" Binding="{Binding Value}" IsReadOnly="True"/>
                 </DataGrid.Columns>
+            </DataGrid>-->
+            <DataGrid ItemsSource="{Binding Statistics}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      CanUserReorderColumns="False"
+                      CanUserSortColumns="False"
+                      CanUserDeleteRows="False"
+                      CanUserResizeColumns="False"
+                      CanUserResizeRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Percentage" Binding="{Binding Percentage}" IsReadOnly="True"/>
+                </DataGrid.Columns>
             </DataGrid>
-
+            
             <DataGrid ItemsSource="{Binding GradeRatings}"
-                      AutoGenerateColumns="False">
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      CanUserReorderColumns="False"
+                      CanUserSortColumns="False"
+                      CanUserDeleteRows="False"
+                      CanUserResizeColumns="False"
+                      CanUserResizeRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Grade}"
                                         Header="Grade"
@@ -53,7 +72,6 @@
                                         Header="To"
                                         IsReadOnly="True"/>
                 </DataGrid.Columns>
-
             </DataGrid>
             
         </WrapPanel>

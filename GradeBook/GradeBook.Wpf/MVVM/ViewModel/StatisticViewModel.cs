@@ -6,7 +6,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows.Input;
     using Basics.MVVM;
     using GradeBook.Rating.Contracts;
@@ -25,17 +25,24 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         private List<GradingModel> gradings;
         private List<GradeRatingDTO> gradeRatings;
         private ExamRatingDTO examRating;
+        private List<StatisticModel> statistics;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StatisticViewModel"/> class.
+        /// </summary>
         public StatisticViewModel()
         {
             this.fileDialogService = new FileDialogService();
             this.messageBoxService = new MessageBoxService();
             this.gradings = new List<GradingModel>();
             this.gradeRatings = new List<GradeRatingDTO>();
-            this.GradeNumbers = new ObservableDictionary<double, int>();
             this.examRating = new ExamRatingDTO();
+            this.statistics = new List<StatisticModel>();
         }
 
+        /// <summary>
+        /// Gets the command for Loading the Statistic Form
+        /// </summary>
         public ICommand LoadStatisticFormCommand
         {
             get
@@ -45,8 +52,26 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
-        public ObservableDictionary<double, int> GradeNumbers { get; set; }
+        /// <summary>
+        /// Gets or sets the Statistics.
+        /// </summary>
+        public List<StatisticModel> Statistics
+        {
+            get
+            {
+                return this.statistics;
+            }
 
+            set
+            {
+                this.statistics = value;
+                this.OnPropertyChanged(nameof(this.Statistics));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the GradeRatings.
+        /// </summary>
         public List<GradeRatingDTO> GradeRatings
         {
             get
@@ -73,7 +98,7 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         {
             this.gradeRatings.Clear();
             this.gradings.Clear();
-            this.GradeNumbers.Clear();
+            this.statistics.Clear();
         }
 
         private void GetGradeRatings()
@@ -111,15 +136,25 @@ namespace GradeBook.Wpf.MVVM.ViewModel
 
         private void GetGradeNumbers()
         {
+            List<StatisticModel> tmpGradingNumbers = new List<StatisticModel>();
+
             foreach (var gradeRating in this.gradeRatings)
             {
-                this.GradeNumbers.Add(gradeRating.Grade, 0);
+                tmpGradingNumbers.Add(new StatisticModel() { Grade = gradeRating.Grade, Amount = 0, Percentage = 0.0 });
             }
 
             foreach (var grading in this.gradings)
             {
-                this.GradeNumbers[grading.Grade]++;
+                tmpGradingNumbers.First(g => g.Grade == grading.Grade).Amount++;
             }
+
+            foreach (var grading in this.gradings)
+            {
+                tmpGradingNumbers.First(g => g.Grade == grading.Grade).Percentage =
+                    (double)tmpGradingNumbers.First(g => g.Grade == grading.Grade).Amount / this.gradings.Count * 100;
+            }
+
+            this.Statistics = tmpGradingNumbers;
         }
     }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfStudentDTO xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <StudentDTO>
+    <Name>Maier</Name>
+    <FirstName>Maria</FirstName>
+    <MatriculationNumber>123</MatriculationNumber>
+    <Attended>true</Attended>
+  </StudentDTO>
+  <StudentDTO>
+    <Name>Maier</Name>
+    <FirstName>Lukas</FirstName>
+    <MatriculationNumber>456</MatriculationNumber>
+    <Attended>true</Attended>
+  </StudentDTO>
+  <StudentDTO>
+    <Name>Wurst</Name>
+    <FirstName>Hans</FirstName>
+    <MatriculationNumber>444</MatriculationNumber>
+    <Attended>true</Attended>
+  </StudentDTO>
+  <StudentDTO>
+    <Name>Depp</Name>
+    <FirstName>Voll</FirstName>
+    <MatriculationNumber>555</MatriculationNumber>
+    <Attended>true</Attended>
+  </StudentDTO>
+</ArrayOfStudentDTO>
