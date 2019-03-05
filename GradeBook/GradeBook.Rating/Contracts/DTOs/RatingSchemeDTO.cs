@@ -26,6 +26,9 @@ namespace GradeBook.Rating.Contracts
         /// </summary>
         public int MaximumPoints { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Points per Grade for the Exam.
+        /// </summary>
         public Dictionary<double, double[]> PointsPerGrade { get; set; }
     }
 }

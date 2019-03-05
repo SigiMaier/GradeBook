@@ -4,11 +4,11 @@
 
 namespace GradeBook.Wpf.MVVM.ViewModel
 {
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Windows.Input;
     using Basics.MVVM;
     using GradeBook.Rating.Contracts;
-    using System.Linq;
-    using System.Collections.ObjectModel;
-    using System.Windows.Input;
 
     /// <summary>
     /// ViewModel for <see cref="Views.StudentsView"/>.
@@ -29,6 +29,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         private int matriculationNumber;
         private bool studentAttended;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StudentsViewModel"/> class.
+        /// </summary>
         public StudentsViewModel()
         {
             this.fileDialogService = new FileDialogService();
@@ -36,6 +39,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             this.selectedStudent = new StudentDTO();
         }
 
+        /// <summary>
+        /// Gets the Command to add a Student.
+        /// </summary>
         public ICommand AddStudentCommand
         {
             get
@@ -45,6 +51,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets the Command to remove a Student.
+        /// </summary>
         public ICommand RemoveStudentCommand
         {
             get
@@ -54,6 +63,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets the Command to Save the Students to a file.
+        /// </summary>
         public ICommand SaveStudentsCommand
         {
             get
@@ -63,6 +75,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Collection containg the Students.
+        /// </summary>
         public ObservableCollection<StudentDTO> Students
         {
             get
@@ -77,6 +92,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets or sets the Selected Student.
+        /// </summary>
         public StudentDTO SelectedStudent
         {
             get
@@ -92,6 +110,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets or sets the StudentName.
+        /// </summary>
         public string StudentName
         {
             get
@@ -107,6 +128,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets or sets the StudentFirstName.
+        /// </summary>
         public string StudentFirstName
         {
             get
@@ -122,6 +146,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets or setst the MatriculationNumber.
+        /// </summary>
         public int MatriculationNumber
         {
             get
@@ -137,6 +164,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the Student Attended the Exam or not.
+        /// </summary>
         public bool StudentAttended
         {
             get
@@ -151,6 +181,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the Adding of Students is Enabled or not.
+        /// </summary>
         public bool AddStudentEnabled
         {
             get
@@ -159,6 +192,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the Removing of Students is Enabled or not.
+        /// </summary>
         public bool RemoveStudentEnabled
         {
             get
@@ -174,6 +210,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the Saving of the Students to a File is Enabled or not.
+        /// </summary>
         public bool SaveStudentsEnabled
         {
             get

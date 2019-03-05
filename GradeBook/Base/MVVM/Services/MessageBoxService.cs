@@ -12,25 +12,16 @@ namespace Basics.MVVM
     /// </summary>
     public class MessageBoxService : IMessageBoxService
     {
-        /// <summary>
-        /// Shows an Info MessageBox.
-        /// </summary>
-        /// <param name="message">The Message to display.</param>
-        /// <param name="caption">The caption of the Message Box.</param>
+        /// <inheritdoc/>
         public void ShowInfoMessage(string message, string caption)
         {
            MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        /// <inheritdoc/>
         public void ShowErrorMessage(string message, Exception exception)
         {
             MessageBox.Show(message + "\n\rException:\n\r" + exception, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-        public string ShowInputMessage(string message)
-        {
-
-            return string.Empty;
         }
     }
 }

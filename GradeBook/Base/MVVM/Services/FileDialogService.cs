@@ -1,15 +1,17 @@
-﻿using Microsoft.Win32;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// <copyright file="FileDialogService.cs" company="Sigi Maier">
+// No copyright
+// </copyright>
 
 namespace Basics.MVVM
 {
+    using Microsoft.WindowsAPICodePack.Dialogs;
+
+    /// <summary>
+    /// Service for showing File Dialogs from the ViewModel.
+    /// </summary>
     public class FileDialogService : IFileDialogService
     {
+        /// <inheritdoc/>
         public void OpenSaveFileDialog<T>(T model)
         {
             CommonOpenFileDialog commonOpenFileDialog = new CommonOpenFileDialog
@@ -25,6 +27,7 @@ namespace Basics.MVVM
             }
         }
 
+        /// <inheritdoc/>
         public T OpenLoadFileDialog<T>()
         {
             CommonOpenFileDialog commonOpenFileDialog = new CommonOpenFileDialog

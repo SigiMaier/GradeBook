@@ -4,14 +4,13 @@
 
 namespace GradeBook.Wpf.MVVM.ViewModel
 {
-    using Basics.MVVM;
-    using GradeBook.Rating.Contracts;
-    using GradeBook.Wpf.MVVM.Model;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
     using System.Windows.Input;
+    using Basics.MVVM;
+    using GradeBook.Rating.Contracts;
+    using GradeBook.Wpf.MVVM.Model;
 
     /// <summary>
     /// ViewModel for the <see cref="Views.GradingView"/>
@@ -22,20 +21,28 @@ namespace GradeBook.Wpf.MVVM.ViewModel
         private readonly IMessageBoxService messageBoxService;
 
         private ICommand getGradingFormCommand;
-        private ICommand enterPointsPerProblemForEachStudentCommand;
-        private ICommand calculateExamGradingCommand;
         private ICommand saveGradingCommand;
+        private List<ProblemDTO> problemList;
 
-        private ObservableCollection<GradingModel> gradings;
-        private List<string> problemList;
+        private ExamRatingDTO examRating;
+        private List<StudentDTO> students;
+        private double totalExamPoints;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GradingViewModel"/> class.
+        /// </summary>
         public GradingViewModel()
         {
-            this.gradings = new ObservableCollection<GradingModel>();
+            this.Gradings = new ObservableCollection<GradingModel>();
             this.fileDialogService = new FileDialogService();
             this.messageBoxService = new MessageBoxService();
+            this.examRating = new ExamRatingDTO();
+            this.students = new List<StudentDTO>();
         }
 
+        /// <summary>
+        /// Gets the Command for Getting the Grading Form.
+        /// </summary>
         public ICommand GetGradingFormCommand
         {
             get
@@ -45,25 +52,9 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
-        public ICommand EnterPointsPerProblemForEachStudentCommand
-        {
-            get
-            {
-                return this.enterPointsPerProblemForEachStudentCommand ??
-                    (this.enterPointsPerProblemForEachStudentCommand = new RelayCommand(_ =>
-                    this.EnterPointsPerProblemForEachStudent()));
-            }
-        }
-
-        public ICommand CalculateExamGradingCommand
-        {
-            get
-            {
-                return this.calculateExamGradingCommand ??
-                    (this.calculateExamGradingCommand = new RelayCommand(_ => this.CalculateGrading()));
-            }
-        }
-
+        /// <summary>
+        /// Gets the Command for Saving the Grading.
+        /// </summary>
         public ICommand SaveGradingCommand
         {
             get
@@ -73,26 +64,15 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
-        public ObservableCollection<GradingModel> Gradings
-        {
-            get
-            {
-                return this.gradings;
-            }
+        /// <summary>
+        /// Gets or sets the Gradings.
+        /// </summary>
+        public ObservableCollection<GradingModel> Gradings { get; set; }
 
-            set
-            {
-                this.gradings = value;
-                this.OnPropertyChanged(nameof(this.Gradings));
-
-                foreach (var item in this.Gradings)
-                {
-                    this.OnPropertyChanged(nameof(item.PointsPerProblems));
-                }
-            }
-        }
-
-        public List<string> ProblemList
+        /// <summary>
+        /// Gets or sets the ProblemList.
+        /// </summary>
+        public List<ProblemDTO> ProblemList
         {
             get
             {
@@ -106,96 +86,154 @@ namespace GradeBook.Wpf.MVVM.ViewModel
             }
         }
 
-        public bool EnterPointsPerProblemEnabled
+        /// <summary>
+        /// Gets or sets the TotalExamPoints to visualize in the View.
+        /// </summary>
+        public double TotalExamPoints
         {
             get
             {
-                return this.Gradings.Count > 0;
+                return this.totalExamPoints;
+            }
+
+            set
+            {
+                this.totalExamPoints = value;
+                this.OnPropertyChanged(nameof(this.TotalExamPoints));
             }
         }
 
-        //public bool CalculateExamGradingEnabled
-        //{
-        //    get
-        //    {
-        //      //  return this.Gradings.Any(g => g.PointsPerProblems.Any(p => p != 0.0));
-        //    }
-        //}
-
-        public bool SaveGradingEnabled { get; private set; }
-
         private void GetGradingForm()
         {
-            ExamRatingDTO examRatingModel = new ExamRatingDTO();
-            List<StudentDTO> students = new List<StudentDTO>();
+            this.LoadExamRating();
 
+            this.LoadStudentInformation();
+
+            this.CreateGradingForm();
+
+            this.CreateProblemList();
+        }
+
+        private void LoadExamRating()
+        {
             this.messageBoxService.ShowInfoMessage(
-                "Please Select a xml-File containing the Exam Ratings.",
-                "Select a Exam Rating File.");
+                            "Please Select a XML-File containing the Exam Ratings.",
+                            "Select a Exam Rating File.");
             try
             {
-               examRatingModel = this.fileDialogService.OpenLoadFileDialog<ExamRatingDTO>();
+                this.examRating = this.fileDialogService.OpenLoadFileDialog<ExamRatingDTO>();
             }
             catch (InvalidOperationException ex)
             {
                 this.messageBoxService.ShowErrorMessage("Please select a correct Exam Rating File.", ex);
             }
+        }
 
+        private void LoadStudentInformation()
+        {
             this.messageBoxService.ShowInfoMessage(
-                "Please Select a xml-File containing the Students Information.",
-                "Select a Student Information File.");
+                            "Please Select a XML-File containing the Students Information.",
+                            "Select a Student Information File.");
             try
             {
-                students = this.fileDialogService.OpenLoadFileDialog<List<StudentDTO>>();
+                this.students = this.fileDialogService.OpenLoadFileDialog<List<StudentDTO>>();
             }
             catch (InvalidOperationException ex)
             {
                 this.messageBoxService.ShowErrorMessage("Please select a correct Students File.", ex);
             }
+        }
 
-            foreach (var student in students)
+        private void CreateGradingForm()
+        {
+            foreach (var student in this.students)
             {
                 this.Gradings.Add(new GradingModel()
                 {
                     MatriculationNumber = student.MatriculationNumber.ToString(),
-                    PointsPerProblems = new ObservableCollection<PointsPerProblemItem>(),
+                    PointsPerProblems = new ObservableCollection<DoubleItem>(),
                     Grade = 0.0,
                     TotalScore = 0.0
                 });
             }
+        }
 
-            List<string> tmpProblemList = new List<string>();
+        private void CreateProblemList()
+        {
+            List<ProblemDTO> tmpProblemList = new List<ProblemDTO>();
 
-            foreach (var problem in examRatingModel.PointsPerProblems)
+            foreach (var problem in this.examRating.PointsPerProblems)
             {
-                tmpProblemList.Add(problem.ProblemName);
+                tmpProblemList.Add(problem);
             }
 
             foreach (var grading in this.Gradings)
             {
                 for (int i = 0; i < tmpProblemList.Count; i++)
                 {
-                    grading.PointsPerProblems.Add(new PointsPerProblemItem() { DoubleValue = 0.0 });
+                    grading.PointsPerProblems.Add(new DoubleItem() { DoubleValue = 0.0 });
+                }
+
+                foreach (var pointsPerProblem in grading.PointsPerProblems)
+                {
+                    pointsPerProblem.DoubleValueChanged += this.PointsPerProblem_PointsPerProblemValueChanged;
                 }
             }
 
             this.ProblemList = tmpProblemList;
+            this.TotalExamPoints = this.examRating.TotalPoints;
         }
 
-        private void EnterPointsPerProblemForEachStudent()
+        private void PointsPerProblem_PointsPerProblemValueChanged(object sender, EventArgs e)
         {
-        }
+            DoubleItem item = sender as DoubleItem;
 
-        private void CalculateGrading()
-        {
-            //this.OnPropertyChanged(nameof(this.Gradings));
-            this.SaveGradingEnabled = true;
-            this.OnPropertyChanged(nameof(this.SaveGradingEnabled));
+            try
+            {
+                this.CheckInputValues();
+            }
+            catch (InputValueException)
+            {
+                // TODO: Implement Logging....
+                return;
+            }
+
+            this.CalculateGradeAndTotalScore();
         }
 
         private void SaveGrading()
         {
+            this.fileDialogService.OpenSaveFileDialog(this.Gradings);
+        }
 
+        private void CheckInputValues()
+        {
+            foreach (var grading in this.Gradings)
+            {
+                for (int i = 0; i < grading.PointsPerProblems.Count; i++)
+                {
+                    if (grading.PointsPerProblems[i].DoubleValue < 0
+                        || grading.PointsPerProblems[i].DoubleValue > this.examRating.PointsPerProblems[i].PointsForProblem)
+                    {
+                        grading.TotalScore = 0.0;
+                        grading.Grade = 5.0;
+                        this.messageBoxService.ShowInfoMessage(
+                                $"Please enter a Valid Value for Problem {this.examRating.PointsPerProblems[i].ProblemName}!"
+                                + $"\n\rValue has to be non negative and smaller than {this.examRating.PointsPerProblems[i].PointsForProblem}",
+                                "Invalid Value");
+
+                        throw new InputValueException("Input Value for Problem was not in range!");
+                    }
+                }
+            }
+        }
+
+        private void CalculateGradeAndTotalScore()
+        {
+            foreach (var grading in this.Gradings)
+            {
+                grading.CalculateGradeAndTotalScore(this.examRating.PointsPerGrade);
+            }
         }
     }
 }

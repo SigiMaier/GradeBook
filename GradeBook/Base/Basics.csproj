@@ -53,12 +53,15 @@
   <ItemGroup>
     <Compile Include="FileHandling\XmlDeserializer.cs" />
     <Compile Include="FileHandling\XmlSerializer.cs" />
-    <Compile Include="MVVM\FileDialogService.cs" />
-    <Compile Include="MVVM\IFileDialogService.cs" />
-    <Compile Include="MVVM\IMessageBoxService.cs" />
-    <Compile Include="MVVM\MessageBoxService.cs" />
+    <Compile Include="MVVM\Exceptions\InputValueException.cs" />
+    <Compile Include="MVVM\ObservableDictionary.cs" />
+    <Compile Include="MVVM\Services\FileDialogService.cs" />
+    <Compile Include="MVVM\Services\IFileDialogService.cs" />
+    <Compile Include="MVVM\Services\IMessageBoxService.cs" />
+    <Compile Include="MVVM\Services\MessageBoxService.cs" />
     <Compile Include="MVVM\RelayCommand.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />
+    <Compile Include="MVVM\Wrapper\DoubleItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,8 @@
-﻿namespace GradeBook
+﻿// <copyright file="App.xaml.cs" company="Sigi Maier">
+// No copyright
+// </copyright>
+
+namespace GradeBook
 {
     using System.Windows;
 
